@@ -10,6 +10,10 @@ class App extends Component {
 		return (
 			<div className="App">
 				<Header />
+				<FileUploader />
+				{/* TODO: Make these */}
+				{/* <SequenceList /> */}
+				{/* <AppButtons /> */}
 			</div>
 		)
 	}
