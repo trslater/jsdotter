@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 // import logo from './logo.svg';
 import './App.css'
 
-import { Header } from './common/components/Header'
+import Header       from './common/components/Header'
+import FileUploader from './common/components/FileUploader'
 
 class App extends Component {
 	render() {

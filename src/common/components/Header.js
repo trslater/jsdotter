@@ -2,7 +2,7 @@ import React from 'react'
 
 const Header = () =>  (
     <nav className="navbar">
-        <a href="#" className="navbar-brand">JDotter</a>
+        <a href="/" className="navbar-brand">JDotter</a>
     </nav>
 )
 
