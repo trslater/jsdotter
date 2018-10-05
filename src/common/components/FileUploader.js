@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import Dropzone from 'react-dropzone'
+import FileList from './FileList'
 import Button from '@material-ui/core/Button'
 
 class FileUploader extends Component {
@@ -11,7 +12,7 @@ class FileUploader extends Component {
 		this.state = { files: [] }
 	}
 
-    onDrop(files) {
+	onDrop(files) {
         this.setState({ ...this.state, files: files })
 	}
 
@@ -31,16 +32,17 @@ class FileUploader extends Component {
 
             this.setState({ ...this.state, files: [] })
 		}
-    }
+	}
 
-    render() {
-        return (
+	render() {
+		return (
 			<div>
 				<Dropzone onDrop={files => this.onDrop(files)} />
+				<FileList files={this.state.files} />
 				<Button onClick={() => this.onPress()}>Upload</Button>
 			</div>
-        )
-    }
+		)
+	}
 }
 
 export default FileUploader
