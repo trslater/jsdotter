@@ -12,7 +12,7 @@ class FileUploader extends Component {
 	}
 
 	onDrop(files) {
-        this.setState({ ...this.state, files: files })
+		this.setState({ ...this.state, files: files })
 	}
 
 	onPress() {
@@ -21,21 +21,23 @@ class FileUploader extends Component {
 
 			data.append('file', this.state.files[0])
 
-			fetch('http://142.104.33.14:8000/upload/', {
+			fetch('http://142.104.33.14:8001/upload/', {
 				method: 'POST',
 				body: data,
 			})
-				.then(response => response.json)
-				.then(json => console.log(json))
-                .catch(err => console.log(err))
-
-            this.setState({ ...this.state, files: [] })
+				.then(response => response.json())
+				.then(data => this.props.onGetFiles(data["Sequences"]))
+				.catch(err => console.log(err))
 		}
 	}
 
 	render() {
 		return (
 			<div>
+				<Dropzone onDrop={files => this.onDrop(files)}>
+					<div style={{ marginTop: '20px' }}>Drop files here</div>
+				</Dropzone>
+				<FileList files={this.state.files} size="10" />
 				<button onClick={() => this.onPress()}>Upload</button>
 			</div>
 		)
