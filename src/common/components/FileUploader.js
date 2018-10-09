@@ -16,13 +16,10 @@ class FileUploader extends Component {
 
 				body.append('file', file)
 
-				const response = await fetch(
-					'http://142.104.33.14:8001/upload/',
-					{
-						method: 'POST',
-						body: body,
-					},
-				)
+				const response = await fetch(this.url, {
+					method: 'POST',
+					body: body,
+				})
 
 				const json = await response.json()
 				const namesInFile = json['Sequences']
