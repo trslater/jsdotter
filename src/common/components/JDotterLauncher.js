@@ -16,13 +16,6 @@ class JDotterLauncher extends Component {
 		}
 
 		this.selectedSeqs = []
-
-		this.handleOpenClick = this.handleOpenClick.bind(this)
-		this.handleCloseClick = this.handleCloseClick.bind(this)
-		this.handleListChange = this.handleListChange.bind(this)
-		this.handleAddVerticalClick = this.handleAddVerticalClick.bind(this)
-		this.handleAddHorizontalClick = this.handleAddHorizontalClick.bind(this)
-		this.handleLaunchClick = this.handleLaunchClick.bind(this)
 	}
 
 	handleOpenClick() {
@@ -60,18 +53,22 @@ class JDotterLauncher extends Component {
 			<div>
 				<Modal isOpen={this.state.modalIsOpen}>
 					<div>
-						<button onClick={this.handleCloseClick}>X</button>
+						<button onClick={this.handleCloseClick.bind(this)}>
+							X
+						</button>
 					</div>
 
 					<div>
 						<SequenceList
-							onChange={this.handleListChange}
+							onChange={this.handleListChange.bind(this)}
 							seqNames={this.props.seqNames}
 						/>
 					</div>
 
 					<div>
-						<button onClick={this.handleAddVerticalClick}>
+						<button
+							onClick={this.handleAddVerticalClick.bind(this)}
+						>
 							Add Vertical
 						</button>
 						<SequenceList
@@ -82,7 +79,9 @@ class JDotterLauncher extends Component {
 					</div>
 
 					<div>
-						<button onClick={this.handleAddHorizontalClick}>
+						<button
+							onClick={this.handleAddHorizontalClick.bind(this)}
+						>
 							Add Horizontal
 						</button>
 						<SequenceList
@@ -93,12 +92,14 @@ class JDotterLauncher extends Component {
 					</div>
 
 					<div>
-						<button onClick={this.handleLaunchClick}>
+						<button onClick={this.handleLaunchClick.bind(this)}>
 							Launch JDotter
 						</button>
 					</div>
 				</Modal>
-				<button onClick={this.handleOpenClick}>JDotter</button>
+				<button onClick={this.handleOpenClick.bind(this)}>
+					JDotter
+				</button>
 			</div>
 		)
 	}
