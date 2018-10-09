@@ -4,41 +4,72 @@ import Dropzone from 'react-dropzone'
 import FileList from './FileList'
 
 class FileUploader extends Component {
-	url = 'http://142.104.33.14:8000/jdotter/?app=JDotter'
+	url = 'http://142.104.33.14:8001/upload/'
 
 	constructor(props) {
 		super(props)
-		this.state = { files: [] }
+		this.state = {
+			files: [],
+		}
+		this.selected = []
 	}
 
-	onDrop(files) {
+	handleFileDrop(files) {
 		this.setState({ ...this.state, files: files })
 	}
 
-	onPress() {
-		if (this.state.files.length > 0) {
+	handleListChange(event) {
+		this.selected = [].slice
+			.call(event.target.selectedOptions)
+			.map(opt => parseInt(opt.value))
+	}
+
+	handleUploadClick() {
+		if (this.state.files.length > 0 && this.selected.length > 0) {
+			let stuff = this.uploadFiles(this.selected)
+
+			console.log(stuff)
+		}
+	}
+
+	// TODO: Make this nicer
+	async uploadFiles(indices) {
+		let allSeqs = []
+
+		for (let i of this.selected) {
 			const data = new FormData()
 
-			data.append('file', this.state.files[0])
+			data.append('file', this.state.files[i])
 
-			fetch('http://142.104.33.14:8001/upload/', {
+			const response = await fetch('http://142.104.33.14:8001/upload/', {
 				method: 'POST',
 				body: data,
 			})
-				.then(response => response.json())
-				.then(data => this.props.onGetFiles(data["Sequences"]))
-				.catch(err => console.log(err))
+
+			const json = await response.json()
+			const seqs = json["Sequences"]
+
+			allSeqs.push(...seqs)
 		}
+
+		return allSeqs
 	}
 
 	render() {
 		return (
 			<div>
-				<Dropzone onDrop={files => this.onDrop(files)}>
+				{/* TODO: Figure out what goes in accept prop */}
+				<Dropzone onDrop={files => this.handleFileDrop(files)}>
 					<div style={{ marginTop: '20px' }}>Drop files here</div>
 				</Dropzone>
-				<FileList files={this.state.files} size="10" />
-				<button onClick={() => this.onPress()}>Upload</button>
+				{/* TODO: Figure out why these need bind to make this work */}
+				<FileList
+					files={this.state.files}
+					onChange={this.handleListChange.bind(this)}
+				/>
+				<button onClick={this.handleUploadClick.bind(this)}>
+					Upload
+				</button>
 			</div>
 		)
 	}

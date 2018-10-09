@@ -1,9 +1,9 @@
 import React from 'react'
 
 const FileList = props =>
-	<select style={{ width: '200px' }} size="10" multiple>
+	<select onChange={props.onChange} style={{ width: '200px' }} size="10" multiple>
 		{props.files.map((file, i) => (
-			<option key={i} value={file.name}>
+			<option key={i} value={i}>
 				{file.name}
 			</option>
 		))}
