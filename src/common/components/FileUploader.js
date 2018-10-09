@@ -10,8 +10,9 @@ class FileUploader extends Component {
 		super(props)
 		this.state = {
 			files: [],
+			seqNames: [],
 		}
-		this.selected = []
+		this.selectedFiles = []
 	}
 
 	handleFileDrop(files) {
@@ -19,50 +20,47 @@ class FileUploader extends Component {
 	}
 
 	handleListChange(event) {
-		this.selected = [].slice
+		this.selectedFiles = [].slice
 			.call(event.target.selectedOptions)
 			.map(opt => parseInt(opt.value))
 	}
 
-	handleUploadClick() {
-		if (this.state.files.length > 0 && this.selected.length > 0) {
-			let stuff = this.uploadFiles(this.selected)
+	// TODO: Seq name conflicts
+	async handleUploadClick() {
+		if (this.state.files.length > 0 && this.selectedFiles.length > 0) {
+			let seqNames = []
 
-			console.log(stuff)
+			for (let i of this.selectedFiles) {
+				const body = new FormData()
+
+				body.append('file', this.state.files[i])
+
+				const response = await fetch(
+					'http://142.104.33.14:8001/upload/',
+					{
+						method: 'POST',
+						body: body,
+					},
+				)
+
+				const json = await response.json()
+				const namesInFile = json['Sequences']
+
+				seqNames.push(...namesInFile)
+			}
+
+			this.props.onGetSeqNames(seqNames)
 		}
-	}
-
-	// TODO: Make this nicer
-	async uploadFiles(indices) {
-		let allSeqs = []
-
-		for (let i of this.selected) {
-			const data = new FormData()
-
-			data.append('file', this.state.files[i])
-
-			const response = await fetch('http://142.104.33.14:8001/upload/', {
-				method: 'POST',
-				body: data,
-			})
-
-			const json = await response.json()
-			const seqs = json["Sequences"]
-
-			allSeqs.push(...seqs)
-		}
-
-		return allSeqs
 	}
 
 	render() {
 		return (
 			<div>
-				{/* TODO: Figure out what goes in accept prop */}
+				{/* TODO: Accept prop */}
 				<Dropzone onDrop={files => this.handleFileDrop(files)}>
 					<div style={{ marginTop: '20px' }}>Drop files here</div>
 				</Dropzone>
-				{/* TODO: Figure out why these need bind to make this work */}
+				{/* TODO: Why do these need bind to make `this` work */}
 				<FileList
 					files={this.state.files}
 					onChange={this.handleListChange.bind(this)}
