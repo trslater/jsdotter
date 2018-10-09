@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 
 import Dropzone from 'react-dropzone'
 import FileList from './FileList'
-import Button from '@material-ui/core/Button'
 
 class FileUploader extends Component {
 	url = 'http://142.104.33.14:8000/jdotter/?app=JDotter'
@@ -37,9 +36,7 @@ class FileUploader extends Component {
 	render() {
 		return (
 			<div>
-				<Dropzone onDrop={files => this.onDrop(files)} />
-				<FileList files={this.state.files} />
-				<Button onClick={() => this.onPress()}>Upload</Button>
+				<button onClick={() => this.onPress()}>Upload</button>
 			</div>
 		)
 	}
