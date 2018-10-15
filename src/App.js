@@ -4,28 +4,18 @@ App.js
 
 Tasks
 -----
-TODO: Set up repo on BitBucket
-TODO: Convert all handlers to use "class properties"
-	- 'transform-class-property'
+TODO: Rewrite README.md
 
-TODO: Soonish
-	- Clean up multiple upload UI
-
-TODO: Components
-	- Selectable list component
-	- Sequence selector/viewer
-	- Apps bar
-	- Modal for picking horiz/vert sequences
-
-TODO: Later considerations
-    - Drag and drop
-	- GraphQL
-	- Restructuring
-	- Redux
+BACKBURNER: Later considerations
+BACKBURNER: Drag and drop
+BACKBURNER: GraphQL
+BACKBURNER: Restructuring
+BACKBURNER: Redux
 
 */
 
 import React, { Component } from 'react'
+// FIXME:
 // import logo from './logo.svg';
 import './App.css'
 
@@ -52,6 +42,7 @@ class App extends Component {
 		console.log(horizontal, vertical)
 	}
 
+	// FEATURE: Send vertical and horizontal sequences to JDotter
 	handleJDotterClick() {}
 
 	render() {

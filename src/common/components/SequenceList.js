@@ -1,5 +1,3 @@
-// TODO: Combine with FileList
-
 import React from 'react'
 
 const SequenceList = props => (

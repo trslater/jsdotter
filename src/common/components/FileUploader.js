@@ -1,11 +1,21 @@
+/*
+
+FileUploader.js
+
+Author: Tristan Slater <hello@trslater.ca>
+
+*/
+
 import React, { Component } from 'react'
 
 import Dropzone from 'react-dropzone'
 
+// FIXME: Figure out why file upload is hanging up
+
 class FileUploader extends Component {
 	url = 'http://142.104.33.14:8001/upload/'
 
-	// TODO: Seq name conflicts
+	// FEATURE: Sequence name conflict resolver
 	async handleFileDrop(files) {
 		if (files.length > 0) {
 			let seqNames = []
@@ -34,7 +44,7 @@ class FileUploader extends Component {
 	render() {
 		return (
 			<div>
-				{/* TODO: Accept prop */}
+				{/* IMPROVEMENT: Use accept prop */}
 				<Dropzone onDrop={files => this.handleFileDrop(files)}>
 					<div style={{ marginTop: '20px' }}>Drop files here</div>
 				</Dropzone>

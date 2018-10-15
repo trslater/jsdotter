@@ -48,6 +48,7 @@ class JDotterLauncher extends Component {
 		console.log('Vertical: ' + this.props.seqNames[this.state.verticalSeqs])
 	}
 
+	// REFACTOR:
 	render() {
 		return (
 			<div>
