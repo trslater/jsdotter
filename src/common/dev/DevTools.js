@@ -1,7 +1,7 @@
-export const runDev = (fn, ...args) => {
+export const runDev = (thisObj, fn, ...args) => {
 	if (typeof fn === 'function') {
 		if (process.env.NODE_ENV === 'development') {
-			fn.call(this, ...args)
+			fn.call(thisObj, ...args)
 		}
 	}
 }
