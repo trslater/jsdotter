@@ -10,7 +10,7 @@ import React, { Component } from 'react'
 
 import Dropzone from 'react-dropzone'
 
-import { runDev } from '../dev/DevTools'
+// import { runDev } from '../dev/DevTools'
 
 // FIXME: Figure out why file upload is hanging up
 
@@ -19,16 +19,10 @@ class FileUploader extends Component {
 
 	// FEATURE: Sequence name conflict resolver
 	async handleFileDrop(files) {
-		console.group('Handle File Drop')
-		// console.log('Gets here')
-
-		// console.log(typeof console.log)
-
 		if (files.length > 0) {
 			let seqNames = []
 
 			for (let file of files) {
-				console.log(file)
 				const body = new FormData()
 
 				body.append('file', file)
@@ -41,14 +35,10 @@ class FileUploader extends Component {
 				const json = await response.json()
 				const namesInFile = json['names']
 
-				runDev(console.log, namesInFile)
-
 				seqNames.push(...namesInFile)
 			}
 
-			runDev(console.log, seqNames)
-
-			this.props.onGetSeqNames(...seqNames)
+			this.props.onGetSeqNames(seqNames)
 		}
 	}
 
