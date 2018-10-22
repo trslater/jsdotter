@@ -23,12 +23,16 @@ import JDotterLauncher from './common/components/JDotterLauncher'
 import FileUploader from './common/components/FileUploader'
 import SequenceList from './common/components/SequenceList'
 
+import log from './common/dev/Logger'
+
 class App extends Component {
 	constructor(props) {
 		super(props)
+		log.debug('Creating: %O', this)
 		this.state = {
 			seqNames: [],
 		}
+		log.debug('Initial state: %O', this.state)
 	}
 
 	handleGetSeqNames(seqNames) {

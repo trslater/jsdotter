@@ -1,0 +1,1 @@
+scp -i ~/.ssh/virokey.pem -r ./build/* ubuntu@ec2-34-218-42-165.us-west-2.compute.amazonaws.com:/opt/bitnami/apps/wordpress/htdocs/jdotter-client
