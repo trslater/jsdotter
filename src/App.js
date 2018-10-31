@@ -17,11 +17,13 @@ BACKBURNER: Redux
 import React, { Component } from 'react'
 // FIXME:
 // import logo from './logo.svg';
-import './App.css'
+import 'App.css'
 
-import JDotterLauncher from './common/components/JDotterLauncher'
-import FileUploader from './common/components/FileUploader'
-import SequenceList from './common/components/SequenceList'
+import JDotterLauncher from 'common/components/JDotterLauncher'
+import FileUploader from 'common/components/FileUploader'
+import SequenceList from 'common/components/SequenceList'
+
+import log from 'common/dev/Logger'
 
 import log from './common/dev/Logger'
 

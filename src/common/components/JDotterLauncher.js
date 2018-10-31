@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 import Modal from 'react-modal'
-import SequenceList from './SequenceList'
+import SequenceList from 'common/components/SequenceList'
 
 Modal.setAppElement('#root')
 

@@ -10,7 +10,7 @@ import React, { Component } from 'react'
 
 import Dropzone from 'react-dropzone'
 
-import log from '../dev/Logger'
+import log from 'common/dev/Logger'
 
 // import { runDev } from '../dev/DevTools'
 
