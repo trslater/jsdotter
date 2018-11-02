@@ -1,0 +1,30 @@
+.wrapper {
+    font-size: 15px;
+    text-align: left;
+    padding: 20px 0;
+}
+
+.nucleotidePair {
+    vertical-align: middle;
+	display: inline-block;
+	box-sizing: border-box;
+	border: 1px solid transparent;
+	border-radius: 3px;
+}
+
+.center {
+    color: red;
+}
+
+.match {
+    background-color: cyan;
+    border-color: teal;
+}
+
+.nucleotide {
+    line-height: 20px;
+    text-align: center;
+    width: 20px;
+    height: 20px;
+    padding: 0px;
+}

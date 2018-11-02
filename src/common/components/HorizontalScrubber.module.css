@@ -1,0 +1,11 @@
+.track {
+    background-color: #ddd;
+    height: 10px;
+    border-radius: 10px;
+}
+.scrubber {
+    background-color: #bbb;
+    width: 30px;
+    height: 10px;
+    border-radius: 10px;
+}
