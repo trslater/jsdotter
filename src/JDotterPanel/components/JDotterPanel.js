@@ -36,6 +36,24 @@ class JDotterPanel extends PureComponent {
 		this.updateY(Math.floor(this.verticalSeq.length * percent))
 	}
 
+	// TODO: Move to external tool
+	getRevComp(seq) {
+		let revComp = ''
+
+		const tt = {
+			C: 'G',
+			G: 'C',
+			T: 'A',
+			A: 'T',
+		}
+
+		for (let base of seq) {
+			revComp = tt[base] + revComp
+		}
+
+		return revComp
+	}
+
 	render() {
 		return (
 			<AlignmentTool
