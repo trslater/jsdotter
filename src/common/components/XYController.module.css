@@ -1,0 +1,15 @@
+.wrapper {
+    display: inline-block;
+    border: 1px solid black;
+}
+
+.field {
+    border: 1px solid black;
+}
+
+/* .xhairsWrapper {
+} */
+
+.xhairsCursor {
+    background-color: black;
+}

@@ -26,6 +26,7 @@ const XYController = props => {
 						bottom: props.height,
                     }}
                     onDrag={props.onXhairsMove}
+                    position={{ x: props.x, y: props.y }}
 				>
 					<div
 						className={styles.xhairsWrapper}
