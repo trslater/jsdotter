@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 // TODO: This is wonky... find a better solution
 import AlignmentTool from 'common/components/AlignmentTool'
 
-// import log from 'common/dev/Logger'
+import log from 'common/dev/Logger'
 
 // TODO: Figure out better way of dealing with dimensions, styling, layout, etc.
 
@@ -10,10 +10,12 @@ class JDotterPanel extends PureComponent {
 	constructor(props) {
 		super(props)
 
-		this.horizontalSeq =
-			'atgctttgtggttgtagacaacattgcaggtgtgacacagcgcttagccgtccgctgtggctgaccatcgtcgcgagtacgaggtcagcatcgagtcacctgctgatgccggtaccacattcggtaagcggatttcacttgacagctggtaattattctacccgacccctggtttcccataatggggtagtcgggctgaacgcgcgtagagacagcgggatctgtttacagcgccaactcgatagtgccgtatatttgacacgcttacccatatatcaagcgcgtccggtgggaagataa'
+		this.horizSeq =
+			'ATGCTTTGTGGTTGTAGACAACATTGCAGGTGTGACACAGCGCTTAGCCGTCCGCTGTGGCTGACCATCGTCGCGAGTACGAGGTCAGCATCGAGTCACCTGCTGATGCCGGTACCACATTCGGTAAGCGGATTTCACTTGACAGCTGGTAATTATTCTACCCGACCCCTGGTTTCCCATAATGGGGTAGTCGGGCTGAACGCGCGTAGAGACAGCGGGATCTGTTTACAGCGCCAACTCGATAGTGCCGTATATTTGACACGCTTACCCATATATCAAGCGCGTCCGGTGGGAAGATAA'
+		this.horizRevComp = this.getRevComp(this.horizSeq)
 		this.verticalSeq =
-			'atgccttatggcgtgttatcagagttatctgtgaaacagaccccgcctacaggtgtcttaattcgaatatcccgctgtagcaaagtcacttcgcttgagaatcctaagttaaatgtcttgtgtagggatgggccgatagatgaaccttttttaaagtgcagcgcgttgctagatggagcgatgagagaatttccctccacgagattttgccttaaggtcgactcagttgtcttgaccctacgactcgagggtgcgcagggacagtctcgggcaaactctgatctaccccctttcgcttaa'
+			'ATGCCTTATGGCGTGTTATCAGAGTTATCTGTGAAACAGACCCCGCCTACAGGTGTCTTAATTCGAATATCCCGCTGTAGCAAAGTCACTTCGCTTGAGAATCCTAAGTTAAATGTCTTGTGTAGGGATGGGCCGATAGATGAACCTTTTTTAAAGTGCAGCGCGTTGCTAGATGGAGCGATGAGAGAATTTCCCTCCACGAGATTTTGCCTTAAGGTCGACTCAGTTGTCTTGACCCTACGACTCGAGGGTGCGCAGGGACAGTCTCGGGCAAACTCTGATCTACCCCCTTTCGCTTAA'
+		this.verticalRevComp = this.getRevComp(this.verticalSeq)
 		this.numVisible = 37
 		this.baseSize = 22
 
@@ -29,7 +31,7 @@ class JDotterPanel extends PureComponent {
 	}
 
 	handleScrubA(percent) {
-		this.updateX(Math.floor(this.horizontalSeq.length * percent))
+		this.updateX(Math.floor(this.horizSeq.length * percent))
 	}
 
 	handleScrubB(percent) {
@@ -56,16 +58,35 @@ class JDotterPanel extends PureComponent {
 
 	render() {
 		return (
-			<AlignmentTool
-				seqA={this.horizontalSeq}
-				seqAStart={this.state.x}
-				onScrubA={this.handleScrubA.bind(this)}
-				seqB={this.verticalSeq}
-				seqBStart={this.state.y}
-				onScrubB={this.handleScrubB.bind(this)}
-				numVisible={this.numVisible}
-				nucleotideSize={this.nucleotideSize}
-			/>
+			<div>
+				<div>
+					<h2>Sequence</h2>
+					<AlignmentTool
+						seqA={this.horizSeq}
+						seqAStart={this.state.x}
+						onScrubA={this.handleScrubA.bind(this)}
+						seqB={this.verticalSeq}
+						seqBStart={this.state.y}
+						onScrubB={this.handleScrubB.bind(this)}
+						numVisible={this.numVisible}
+						baseSize={this.baseSize}
+					/>
+				</div>
+
+				<div>
+					<h2>Reverse Complement Sequence</h2>
+					<AlignmentTool
+						seqA={this.horizRevComp}
+						seqAStart={this.state.x}
+						onScrubA={this.handleScrubA.bind(this)}
+						seqB={this.verticalRevComp}
+						seqBStart={this.state.y}
+						onScrubB={this.handleScrubB.bind(this)}
+						numVisible={this.numVisible}
+						baseSize={this.baseSize}
+					/>
+				</div>
+			</div>
 		)
 	}
 }
