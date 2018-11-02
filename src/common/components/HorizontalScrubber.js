@@ -25,6 +25,8 @@ class HorizontalScrubber extends PureComponent {
                     axis="x"
                     bounds={{ left: 0, right: this.maxScrub }}
                     onDrag={this.handleDrag.bind(this)}
+                    // FIXME: need to apply a scale factor. Probably will require refactoring the whole position system
+                    position={{ x: this.props.loc, y: 0 }}
                 >
                     <div
                         style={{ width: this.scrubberWidth }}
