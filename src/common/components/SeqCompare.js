@@ -18,43 +18,43 @@ const SeqCompare = props => {
 		props.seqBLoc,
 	).toUpperCase()
 
-	const nucleotidePairs = []
+	const basePairs = []
 	for (let i = 0; i < visibleA.length; i++) {
-		const nucleotideA = visibleA[i]
-		const nucleotideB = visibleB[i]
+		const baseA = visibleA[i]
+		const baseB = visibleB[i]
 
-		const nucleotidePairClasses = [styles.nucleotidePair]
+		const basePairClasses = [styles.basePair]
 
 		const isCenter = i === Math.floor(props.width / 2)
 		if (isCenter) {
-			nucleotidePairClasses.push(styles.center)
+			basePairClasses.push(styles.center)
 		}
 
 		if (
-			nucleotideA !== ' ' &&
-			nucleotideB !== ' ' &&
-			nucleotideA === nucleotideB
+			baseA !== ' ' &&
+			baseB !== ' ' &&
+			baseA === baseB
 		) {
-			nucleotidePairClasses.push(styles.match)
+			basePairClasses.push(styles.match)
 		}
 
-		nucleotidePairs.push(
-			<div key={i} className={nucleotidePairClasses.join(' ')}>
-				{makeNucleotide(
-					styles.nucleotide,
-					props.nucleotideSize,
-					nucleotideA,
+		basePairs.push(
+			<div key={i} className={basePairClasses.join(' ')}>
+				{makeBase(
+					styles.base,
+					props.baseSize,
+					baseA,
 				)}
-				{makeNucleotide(
-					styles.nucleotide,
-					props.nucleotideSize,
-					nucleotideB,
+				{makeBase(
+					styles.base,
+					props.baseSize,
+					baseB,
 				)}
 			</div>,
 		)
 	}
 
-	return <div className={styles.wrapper}>{nucleotidePairs}</div>
+	return <div className={styles.wrapper}>{basePairs}</div>
 }
 
 const padAndSliceCenteredAt = (string, targetLength, padString, center) => {
@@ -67,7 +67,7 @@ const padAndSliceCenteredAt = (string, targetLength, padString, center) => {
 		.padEnd(targetLength, padString)
 }
 
-const makeNucleotide = (styles, size, value) => (
+const makeBase = (styles, size, value) => (
 	<div
 		className={styles}
 		style={{

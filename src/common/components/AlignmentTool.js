@@ -8,7 +8,7 @@ import SeqCompare from 'common/components/SeqCompare'
 // import log from 'common/dev/Logger'
 
 const AlignmentTool = props => {
-	const scrubWidth = props.numVisible * props.nucleotideSize
+	const scrubWidth = props.numVisible * props.baseSize
 
 	return (
 		<div className={styles.wrapper}>
@@ -19,7 +19,7 @@ const AlignmentTool = props => {
 				seqB={props.seqB}
 				seqBLoc={props.seqBStart}
 				numVisible={props.numVisible}
-				nucleotideSize={props.nucleotideSize}
+				baseSize={props.baseSize}
 			/>
 			<HorizontalScrubber onScrub={props.onScrubB} width={scrubWidth} />
 		</div>

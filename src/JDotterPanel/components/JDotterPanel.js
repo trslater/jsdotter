@@ -15,7 +15,7 @@ class JDotterPanel extends PureComponent {
 		this.verticalSeq =
 			'atgccttatggcgtgttatcagagttatctgtgaaacagaccccgcctacaggtgtcttaattcgaatatcccgctgtagcaaagtcacttcgcttgagaatcctaagttaaatgtcttgtgtagggatgggccgatagatgaaccttttttaaagtgcagcgcgttgctagatggagcgatgagagaatttccctccacgagattttgccttaaggtcgactcagttgtcttgaccctacgactcgagggtgcgcagggacagtctcgggcaaactctgatctaccccctttcgcttaa'
 		this.numVisible = 37
-		this.nucleotideSize = 22
+		this.baseSize = 22
 
 		this.state = { x: 0, y: 0 }
 	}
