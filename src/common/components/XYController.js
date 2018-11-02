@@ -38,12 +38,20 @@ const XYController = props => {
 						<div
                             className={styles.xhairsCursor}
                             style={{
+                                fontSize: props.xhairsSize + 'px',
+                                lineHeight: props.xhairsSize + 'px',
                                 width: props.xhairsSize,
 							    height: props.xhairsSize,
                                 marginLeft: -xhairsOffset,
                                 marginTop: -xhairsOffset,
                             }}
-                        />
+                        >
+                            +
+                        </div>
+                        
+                        <div>
+                            ({props.x}, {props.y})
+                        </div>
 					</div>
 				</Draggable>
 				{props.children}
