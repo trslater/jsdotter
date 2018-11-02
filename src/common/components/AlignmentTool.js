@@ -13,8 +13,10 @@ const AlignmentTool = props => {
 	return (
 		<div className={styles.wrapper}>
 			<HorizontalScrubber
-				onScrub={props.onScrubA} width={scrubWidth}
+				width={scrubWidth}
+				valueRange={[0, props.seqA.length]}
 				loc={props.seqALoc}
+				onScrub={props.onScrubA}
 			/>
 			<SeqCompare
 				seqA={props.seqA}
@@ -25,8 +27,10 @@ const AlignmentTool = props => {
 				baseSize={props.baseSize}
 				/>
 			<HorizontalScrubber
-				onScrub={props.onScrubB} width={scrubWidth}
+				width={scrubWidth}
+				valueRange={[0, props.seqB.length]}
 				loc={props.seqBLoc}
+				onScrub={props.onScrubB}
 			/>
 		</div>
 	)

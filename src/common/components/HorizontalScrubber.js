@@ -11,11 +11,13 @@ class HorizontalScrubber extends PureComponent {
 
         this.scrubberWidth = 30
         this.maxScrub      = this.props.width - this.scrubberWidth
+        this.minValue      = this.props.valueRange[0]
+        this.maxValue      = this.props.valueRange[1]
     }
 
     handleDrag(e, data) {
-        const percent = data.x / this.maxScrub
-        this.props.onScrub(percent)
+        const value = data.x * this.maxValue / this.maxScrub
+        this.props.onScrub(value)
     }
 
     render() {
@@ -25,8 +27,7 @@ class HorizontalScrubber extends PureComponent {
                     axis="x"
                     bounds={{ left: 0, right: this.maxScrub }}
                     onDrag={this.handleDrag.bind(this)}
-                    // FIXME: need to apply a scale factor. Probably will require refactoring the whole position system
-                    position={{ x: this.props.loc, y: 0 }}
+                    position={{ x: this.props.loc * this.maxScrub / this.maxValue, y: 0 }}
                 >
                     <div
                         style={{ width: this.scrubberWidth }}
