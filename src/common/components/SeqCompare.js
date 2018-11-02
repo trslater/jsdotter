@@ -1,21 +1,19 @@
 import React from 'react'
 
 import styles from 'common/components/SeqCompare.module.css'
-import log from 'common/dev/Logger'
+// import log from 'common/dev/Logger'
 
 const SeqCompare = props => {
-	log.debug('render seq compare')
-
 	const visibleA = padAndSliceCenteredAt(
 		props.seqA,
-		props.width,
+		props.numVisible,
 		' ',
 		props.seqALoc,
 	).toUpperCase()
 
 	const visibleB = padAndSliceCenteredAt(
 		props.seqB,
-		props.width,
+		props.numVisible,
 		' ',
 		props.seqBLoc,
 	).toUpperCase()
@@ -42,17 +40,21 @@ const SeqCompare = props => {
 
 		nucleotidePairs.push(
 			<div key={i} className={nucleotidePairClasses.join(' ')}>
-				<div className={styles.nucleotide}>{nucleotideA}</div>
-				<div className={styles.nucleotide}>{nucleotideB}</div>
+				{makeNucleotide(
+					styles.nucleotide,
+					props.nucleotideSize,
+					nucleotideA,
+				)}
+				{makeNucleotide(
+					styles.nucleotide,
+					props.nucleotideSize,
+					nucleotideB,
+				)}
 			</div>,
 		)
 	}
 
-	return (
-		<div className={styles.wrapper} ref={props.wrapperRef}>
-			{nucleotidePairs}
-		</div>
-	)
+	return <div className={styles.wrapper}>{nucleotidePairs}</div>
 }
 
 const padAndSliceCenteredAt = (string, targetLength, padString, center) => {
@@ -64,5 +66,20 @@ const padAndSliceCenteredAt = (string, targetLength, padString, center) => {
 		.slice(sliceStart, sliceStart + targetLength)
 		.padEnd(targetLength, padString)
 }
+
+const makeNucleotide = (styles, size, value) => (
+	<div
+		className={styles}
+		style={{
+			fontSize: size * 0.6,
+			// FIXME: Shouldn't need these -2 offsets to compensate for border. There must be a better way
+			lineHeight: size - 2 + 'px',
+			width: size - 2,
+			height: size - 2,
+		}}
+	>
+		{value}
+	</div>
+)
 
 export default SeqCompare
