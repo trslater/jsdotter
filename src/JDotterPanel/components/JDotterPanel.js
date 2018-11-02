@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 // TODO: This is wonky... find a better solution
 import AlignmentTool from 'common/components/AlignmentTool'
+import XYController from 'common/components/XYController'
 
 import log from 'common/dev/Logger'
 
@@ -38,27 +39,26 @@ class JDotterPanel extends PureComponent {
 		this.updateY(Math.floor(this.verticalSeq.length * percent))
 	}
 
-	// TODO: Move to external tool
-	getRevComp(seq) {
-		let revComp = ''
-
-		const tt = {
-			C: 'G',
-			G: 'C',
-			T: 'A',
-			A: 'T',
+	handleXhairsMove(e, { x, y }) {
+		this.setState({ ...this.state, x, y })
 		}
-
-		for (let base of seq) {
-			revComp = tt[base] + revComp
-		}
-
-		return revComp
-	}
 
 	render() {
 		return (
 			<div>
+				<div>
+					<XYController
+						width={this.horizSeq.length}
+						height={this.verticalSeq.length}
+						x={0}
+						y={0}
+						xhairsSize={20}
+						onXhairsMove={this.handleXhairsMove.bind(this)}
+					>
+						Results go here
+					</XYController>
+				</div>
+
 				<div>
 					<h2>Sequence</h2>
 					<AlignmentTool
@@ -88,6 +88,24 @@ class JDotterPanel extends PureComponent {
 				</div>
 			</div>
 		)
+	}
+
+	// TODO: Move to external tool
+	getRevComp(seq) {
+		let revComp = ''
+
+		const tt = {
+			C: 'G',
+			G: 'C',
+			T: 'A',
+			A: 'T',
+		}
+
+		for (let base of seq) {
+			revComp = tt[base] + revComp
+		}
+
+		return revComp
 	}
 }
 
