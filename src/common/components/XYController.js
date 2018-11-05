@@ -9,8 +9,6 @@ const XYController = props => {
     
 	return (
 		<div className={styles.wrapper}>
-			{/* TODO: Replace "xhairs" with proper xhairs, perhaps SVG, canvas, etc. */}
-
 			<div
 				className={styles.field}
 				style={{
@@ -31,31 +29,29 @@ const XYController = props => {
 					<div
 						className={styles.xhairsWrapper}
 						style={{
-							width: props.xhairsSize,
-							height: props.xhairsSize,
+							width: props.xhairsSize / 2,
+							height: props.xhairsSize / 2,
 						}}
 					>
 						<div
                             className={styles.xhairsCursor}
                             style={{
-                                fontSize: props.xhairsSize + 'px',
-                                lineHeight: props.xhairsSize + 'px',
-                                width: props.xhairsSize,
-							    height: props.xhairsSize,
+                                width: props.xhairsSize / 2,
+							    height: props.xhairsSize / 2,
                                 marginLeft: -xhairsOffset,
                                 marginTop: -xhairsOffset,
                             }}
-                        >
-                            +
-                        </div>
-                        
+                        />
+
+                        {/* FIXME: Wraps, shouldn't */}
+                        {/* FIXME: Clickable, shouldn't be */}
                         <div>
                             ({props.x}, {props.y})
                         </div>
 					</div>
 				</Draggable>
-				{props.children}
 			</div>
+			{props.children}
 		</div>
 	)
 }

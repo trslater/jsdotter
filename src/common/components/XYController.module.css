@@ -5,10 +5,22 @@
 
 .field {
     border: 1px solid black;
+    position: absolute;
 }
 
-/* .xhairsWrapper {
-} */
+.xhairsWrapper,
+.xhairsCursor {
+    box-sizing: border-box;
+    border: 1px solid black;
+}
+
+.xhairsWrapper {
+    border-bottom: none;
+    border-right: none;    
+} 
 
 .xhairsCursor {
+    border: 1px solid black;
+    border-top: none;
+    border-left: none;
 }
