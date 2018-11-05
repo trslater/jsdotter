@@ -43,9 +43,7 @@ const XYController = props => {
                             }}
                         />
 
-                        {/* FIXME: Wraps, shouldn't */}
-                        {/* FIXME: Clickable, shouldn't be */}
-                        <div>
+                        <div className={styles.coords}>
                             ({props.x}, {props.y})
                         </div>
 					</div>

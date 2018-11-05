@@ -24,3 +24,12 @@
     border-top: none;
     border-left: none;
 }
+
+.coords {
+    font-size: 10px;
+    white-space: nowrap;
+}
+
+.coords:hover {
+    cursor: default;
+}
