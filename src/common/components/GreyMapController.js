@@ -35,25 +35,28 @@ class GreyMapSlider extends PureComponent {
 		this.context.fillRect(0, 0, this.props.width, this.props.height)
 	}
 
+	// TODO: make scrubber defaults
 	render() {
 		return (
 			<div style={{ textAlign: 'left' }}>
 				<div>Black point</div>
 				<HorizontalScrubber
-					width={this.props.width}
+					trackWidth={this.props.width}
+					scrubberWidth={30}
 					onScrub={this.props.onScrubBlack}
 					valueRange={[0, 1]}
 					value={this.props.blackPoint}
-				/>
+					/>
 
 				<canvas
 					ref={this.canvas}
 					width={this.props.width}
 					height={this.props.height}
-				/>
+					/>
 
 				<HorizontalScrubber
-					width={this.props.width}
+					trackWidth={this.props.width}
+					scrubberWidth={30}
 					onScrub={this.props.onScrubWhite}
 					valueRange={[0, 1]}
 					value={this.props.whitePoint}
