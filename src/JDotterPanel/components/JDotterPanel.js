@@ -14,12 +14,9 @@ class JDotterPanel extends PureComponent {
 	constructor(props) {
 		super(props)
 
-		this.horizSeq =
-			'ATGCTTTGTGGTTGTAGACAACATTGCAGGTGTGACACAGCGCTTAGCCGTCCGCTGTGGCTGACCATCGTCGCGAGTACGAGGTCAGCATCGAGTCACCTGCTGATGCCGGTACCACATTCGGTAAGCGGATTTCACTTGACAGCTGGTAATTATTCTACCCGACCCCTGGTTTCCCATAATGGGGTAGTCGGGCTGAACGCGCGTAGAGACAGCGGGATCTGTTTACAGCGCCAACTCGATAGTGCCGTATATTTGACACGCTTACCCATATATCAAGCGCGTCCGGTGGGAAGATAA'
-		this.horizRevComp = this.getRevComp(this.horizSeq)
-		this.verticalSeq =
-			'ATGCCTTATGGCGTGTTATCAGAGTTATCTGTGAAACAGACCCCGCCTACAGGTGTCTTAATTCGAATATCCCGCTGTAGCAAAGTCACTTCGCTTGAGAATCCTAAGTTAAATGTCTTGTGTAGGGATGGGCCGATAGATGAACCTTTTTTAAAGTGCAGCGCGTTGCTAGATGGAGCGATGAGAGAATTTCCCTCCACGAGATTTTGCCTTAAGGTCGACTCAGTTGTCTTGACCCTACGACTCGAGGGTGCGCAGGGACAGTCTCGGGCAAACTCTGATCTACCCCCTTTCGCTTAA'
-		this.verticalRevComp = this.getRevComp(this.verticalSeq)
+		// Constants
+		this.horizRevComp = this.getRevComp(this.props.horizSeq)
+		this.verticalRevComp = this.getRevComp(this.props.verticalSeq)
 		this.numVisible = 37
 		this.baseSize = 22
 
@@ -65,11 +62,11 @@ class JDotterPanel extends PureComponent {
 			<div>
 				<div>
 					<XYController
-						width={this.horizSeq.length}
-						height={this.verticalSeq.length}
-						x={0}
-						y={0}
-						xhairsSize={20}
+						width={this.props.width}
+						height={this.props.height}
+						x={this.state.x}
+						y={this.state.y}
+						xhairsSize={50}
 						onXhairsMove={this.handleXhairsMove.bind(this)}
 					>
 						<JDotterPlotResults
@@ -94,11 +91,11 @@ class JDotterPanel extends PureComponent {
 				<div>
 					<h2>Sequence</h2>
 					<AlignmentTool
-						seqA={this.horizSeq}
-						seqAStart={this.state.x}
+						seqA={this.props.horizSeq}
+						seqALoc={this.state.x}
 						onScrubA={this.handleScrubA.bind(this)}
-						seqB={this.verticalSeq}
-						seqBStart={this.state.y}
+						seqB={this.props.verticalSeq}
+						seqBLoc={this.state.y}
 						onScrubB={this.handleScrubB.bind(this)}
 						numVisible={this.numVisible}
 						baseSize={this.baseSize}
