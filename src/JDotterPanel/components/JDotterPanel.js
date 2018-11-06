@@ -37,12 +37,12 @@ class JDotterPanel extends PureComponent {
 		this.setState({ ...this.state, y })
 	}
 
-	handleScrubA(percent) {
-		this.updateX(Math.floor(this.horizSeq.length * percent))
+	handleScrubA(value) {
+		this.updateX(value)
 	}
 
-	handleScrubB(percent) {
-		this.updateY(Math.floor(this.verticalSeq.length * percent))
+	handleScrubB(value) {
+		this.updateY(value)
 	}
 
 	handleXhairsMove(e, { x, y }) {
