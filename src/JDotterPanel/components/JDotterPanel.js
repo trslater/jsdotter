@@ -13,6 +13,9 @@ import log from 'common/dev/Logger'
 // TODO: Figure out better way of dealing with dimensions, styling, layout, etc.
 // 			Maybe fine as is (CSS modules)?
 // TODO: Implement keyboard controls
+// TODO: Improve accuracy
+// TODO: Inspect and clean up state
+// TODO: Make as many components pure or functional/stateless as possible
 
 class JDotterPanel extends PureComponent {
 	constructor(props) {
