@@ -106,10 +106,10 @@ class JDotterPanel extends PureComponent {
 					<h2>Reverse Complement Sequence</h2>
 					<AlignmentTool
 						seqA={this.horizRevComp}
-						seqAStart={this.state.x}
+						seqALoc={this.state.x}
 						onScrubA={this.handleScrubA.bind(this)}
 						seqB={this.verticalRevComp}
-						seqBStart={this.state.y}
+						seqBLoc={this.state.y}
 						onScrubB={this.handleScrubB.bind(this)}
 						numVisible={this.numVisible}
 						baseSize={this.baseSize}
