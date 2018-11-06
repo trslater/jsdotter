@@ -43,7 +43,7 @@ class GreyMapSlider extends PureComponent {
 					width={this.props.width}
 					onScrub={this.props.onScrubBlack}
 					valueRange={[0, 1]}
-					loc={this.props.blackPoint}
+					value={this.props.blackPoint}
 				/>
 
 				<canvas
@@ -56,7 +56,7 @@ class GreyMapSlider extends PureComponent {
 					width={this.props.width}
 					onScrub={this.props.onScrubWhite}
 					valueRange={[0, 1]}
-					loc={this.props.whitePoint}
+					value={this.props.whitePoint}
 				/>
 				<div>White point</div>
 			</div>
