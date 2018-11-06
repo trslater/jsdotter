@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 // TODO: This is wonky... find a better solution
 import AlignmentTool from 'common/components/AlignmentTool'
 import XYController from 'common/components/XYController'
+import JDotterPlotInfo from 'JDotterPanel/components/JDotterPlotInfo';
 
 import log from 'common/dev/Logger'
 
@@ -113,6 +114,18 @@ class JDotterPanel extends PureComponent {
 						onScrubB={this.handleScrubB.bind(this)}
 						numVisible={this.numVisible}
 						baseSize={this.baseSize}
+					/>
+				</div>
+
+				<div>
+					<h2>Plot Info</h2>
+					<JDotterPlotInfo
+						horizSeqNames={this.props.horizSeqNames}
+						verticalSeqNames={this.props.verticalSeqNames}
+						windowSize={this.props.windowSize}
+						zoom={this.props.zoom}
+						pixelFactor={this.props.pixelFactor}
+						scoreMatrixName={this.props.scoreMatrixName}
 					/>
 				</div>
 			</div>
