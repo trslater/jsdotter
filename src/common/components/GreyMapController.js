@@ -41,6 +41,7 @@ class GreyMapSlider extends PureComponent {
 			scrubberWidth: 30,
 			valueRange: [0, 1],
 		}
+		
 		return (
 			<div style={{ textAlign: 'left' }}>
 				<div>Black point</div>
