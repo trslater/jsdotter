@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-// TODO: This is wonky... find a better solution
+
 import AlignmentTool from 'common/components/AlignmentTool'
 import XYController from 'common/components/XYController'
 import GreyMapController from 'common/components/GreyMapController'
