@@ -8,7 +8,11 @@ import JDotterPlotInfo from 'JDotterPanel/components/JDotterPlotInfo';
 
 import log from 'common/dev/Logger'
 
+// TODO: Improve performance
+// 		- Convert everything to PureComponents
 // TODO: Figure out better way of dealing with dimensions, styling, layout, etc.
+// 			Maybe fine as is (CSS modules)?
+// TODO: Implement keyboard controls
 
 class JDotterPanel extends PureComponent {
 	constructor(props) {
@@ -26,7 +30,7 @@ class JDotterPanel extends PureComponent {
 			y: this.props.initY,
 			blackPoint: this.props.initBlackPoint,
 			whitePoint: this.props.initWhitePoint,
-	}
+		}
 	}
 
 	updateX(x) {
@@ -47,8 +51,8 @@ class JDotterPanel extends PureComponent {
 
 	handleXhairsMove(e, { x, y }) {
 		this.setState({ ...this.state, x, y })
-		}
-
+	}
+	
 	handleScrubBlack(blackPoint) {
 		this.setState({ ...this.state, blackPoint })
 	}
