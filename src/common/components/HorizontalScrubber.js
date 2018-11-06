@@ -3,8 +3,11 @@ import React, { PureComponent } from 'react'
 import styles from 'common/components/HorizontalScrubber.module.css'
 import Draggable from 'react-draggable'
 
-// import log from 'common/dev/Logger'
+import log from 'common/dev/Logger'
 
+/*
+The scrubber takes its position in the form of a value
+*/
 class HorizontalScrubber extends PureComponent {
     constructor(props) {
         super(props)
@@ -17,17 +20,22 @@ class HorizontalScrubber extends PureComponent {
 
     handleDrag(e, data) {
         const value = data.x * this.maxValue / this.maxScrub
-        this.props.onScrub(value)
+
+        this.props.onScrub('x', value)
     }
 
     render() {
+        const x = this.props.loc * this.maxScrub / this.maxValue
+        
+        log.debug(x)
+
         return (
             <div style={{ width: this.props.width }} className={styles.track}>
                 <Draggable
                     axis="x"
                     bounds={{ left: 0, right: this.maxScrub }}
                     onDrag={this.handleDrag.bind(this)}
-                    position={{ x: this.props.loc * this.maxScrub / this.maxValue, y: 0 }}
+                    position={{ x: x, y: 0 }}
                 >
                     <div
                         style={{ width: this.scrubberWidth }}

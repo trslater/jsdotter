@@ -4,7 +4,7 @@ import AlignmentTool from 'common/components/AlignmentTool'
 import XYController from 'common/components/XYController'
 import GreyMapController from 'common/components/GreyMapController'
 import JDotterPlotResults from 'JDotterPanel/components/JDotterPlotResults'
-import JDotterPlotInfo from 'JDotterPanel/components/JDotterPlotInfo';
+import JDotterPlotInfo from 'JDotterPanel/components/JDotterPlotInfo'
 
 import log from 'common/dev/Logger'
 
@@ -26,37 +26,38 @@ class JDotterPanel extends PureComponent {
 
 		// Init state
 		this.state = {
-			x: this.props.initX,
-			y: this.props.initY,
+			horizSeqLoc: this.props.initHorizSeqLoc,
+			verticalSeqLoc: this.props.initVerticalSeqLoc,
 			blackPoint: this.props.initBlackPoint,
 			whitePoint: this.props.initWhitePoint,
 		}
 	}
 
-	updateX(x) {
-		this.setState({ ...this.state, x })
+	updateHorizSeqLoc(horizSeqLoc) {
+		this.setState({ ...this.state, horizSeqLoc })
 	}
 
-	updateY(y) {
-		this.setState({ ...this.state, y })
+	updateVerticalSeqLoc(verticalSeqLoc) {
+		this.setState({ ...this.state, verticalSeqLoc })
 	}
 
-	handleScrubA(value) {
-		this.updateX(value)
+	handleScrubA(seqLoc) {
+		this.updateHorizSeqLoc(seqLoc)
 	}
 
-	handleScrubB(value) {
-		this.updateY(value)
+	handleScrubB(seqLoc) {
+		this.updateVerticalSeqLoc(seqLoc)
 	}
 
 	handleXhairsMove(e, { x, y }) {
-		this.setState({ ...this.state, x, y })
+		this.updateHorizSeqLoc(x * this.props.zoom)
+		this.updateVerticalSeqLoc(y * this.props.zoom)
 	}
-	
+
 	handleScrubBlack(blackPoint) {
 		this.setState({ ...this.state, blackPoint })
 	}
-	
+
 	handleScrubWhite(whitePoint) {
 		this.setState({ ...this.state, whitePoint })
 	}
@@ -68,8 +69,8 @@ class JDotterPanel extends PureComponent {
 					<XYController
 						width={this.props.width}
 						height={this.props.height}
-						x={this.state.x}
-						y={this.state.y}
+						x={this.state.horizSeqLoc / this.props.zoom}
+						y={this.state.verticalSeqLoc / this.props.zoom}
 						xhairsSize={50}
 						onXhairsMove={this.handleXhairsMove.bind(this)}
 					>
@@ -96,10 +97,10 @@ class JDotterPanel extends PureComponent {
 					<h2>Sequence</h2>
 					<AlignmentTool
 						seqA={this.props.horizSeq}
-						seqALoc={this.state.x}
+						seqALoc={this.state.horizSeqLoc}
 						onScrubA={this.handleScrubA.bind(this)}
 						seqB={this.props.verticalSeq}
-						seqBLoc={this.state.y}
+						seqBLoc={this.state.verticalSeqLoc}
 						onScrubB={this.handleScrubB.bind(this)}
 						numVisible={this.numVisible}
 						baseSize={this.baseSize}
@@ -110,10 +111,10 @@ class JDotterPanel extends PureComponent {
 					<h2>Reverse Complement Sequence</h2>
 					<AlignmentTool
 						seqA={this.horizRevComp}
-						seqALoc={this.state.x}
+						seqALoc={this.state.horizSeqLoc}
 						onScrubA={this.handleScrubA.bind(this)}
 						seqB={this.verticalRevComp}
-						seqBLoc={this.state.y}
+						seqBLoc={this.state.verticalSeqLoc}
 						onScrubB={this.handleScrubB.bind(this)}
 						numVisible={this.numVisible}
 						baseSize={this.baseSize}

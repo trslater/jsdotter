@@ -5,10 +5,13 @@ import styles from 'common/components/AlignmentTool.module.css'
 import HorizontalScrubber from 'common/components/HorizontalScrubber'
 import SeqCompare from 'common/components/SeqCompare'
 
-// import log from 'common/dev/Logger'
+import log from 'common/dev/Logger'
 
 const AlignmentTool = props => {
 	const scrubWidth = props.numVisible * props.baseSize
+
+	log.debug('Scrub width', scrubWidth)
+	log.debug('Seq A width', props.seqA.length)
 
 	return (
 		<div className={styles.wrapper}>
