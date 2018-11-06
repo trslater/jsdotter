@@ -5,6 +5,9 @@ App.js
 Tasks
 -----
 TODO: Rewrite README.md
+TODO: Implement testing framework
+		- For now, thinking Jest + Enzyme
+TODO: Start using prop-types
 
 BACKBURNER: Later considerations
 BACKBURNER: Drag and drop
