@@ -12,30 +12,28 @@ class GreyMapSlider extends PureComponent {
 	}
 
 	componentDidMount() {
-        this.initCanvas()
-        this.updateCanvas()
-        
+		this.updateCanvas()
 	}
-    
+
 	componentDidUpdate() {
-        this.updateCanvas()
-    }
-    
-    initCanvas() {
-        this.canvas.current.width = this.props.width
-		this.canvas.current.height = this.props.height
-    }
+		this.updateCanvas()
+	}
 
-    updateCanvas() {
-        this.context = this.canvas.current.getContext('2d')
+	updateCanvas() {
+		this.context = this.canvas.current.getContext('2d')
 
-		let gradient = this.context.createLinearGradient(0, 0, this.props.width, 0)
+		let gradient = this.context.createLinearGradient(
+			0,
+			0,
+			this.props.width,
+			0,
+		)
 		gradient.addColorStop(this.props.blackPoint, 'black')
 		gradient.addColorStop(this.props.whitePoint, 'white')
 
 		this.context.fillStyle = gradient
 		this.context.fillRect(0, 0, this.props.width, this.props.height)
-    }
+	}
 
 	render() {
 		return (
@@ -48,7 +46,11 @@ class GreyMapSlider extends PureComponent {
 					loc={this.props.blackPoint}
 				/>
 
-				<canvas ref={this.canvas} />
+				<canvas
+					ref={this.canvas}
+					width={this.props.width}
+					height={this.props.height}
+				/>
 
 				<HorizontalScrubber
 					width={this.props.width}
