@@ -3,7 +3,12 @@ import React from 'react'
 import styles from 'common/components/SeqCompare.module.css'
 // import log from 'common/dev/Logger'
 
+// TODO: Add current location indicator
+
 const SeqCompare = props => {
+	
+	// TODO: Refactor
+	// TODO: Use loop for duplicate code
 	const visibleA = padAndSliceCenteredAt(
 		props.seqA,
 		props.numVisible,
@@ -57,6 +62,7 @@ const SeqCompare = props => {
 	return <div className={styles.wrapper}>{basePairs}</div>
 }
 
+// TODO: Refactor
 const padAndSliceCenteredAt = (string, targetLength, padString, center) => {
 	let halfLength = Math.floor(targetLength / 2)
 	let sliceStart = Math.max(0, center - halfLength)
@@ -67,6 +73,7 @@ const padAndSliceCenteredAt = (string, targetLength, padString, center) => {
 		.padEnd(targetLength, padString)
 }
 
+// TODO: Refactor
 const makeBase = (styles, size, value) => (
 	<div
 		className={styles}
