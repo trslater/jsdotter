@@ -3,6 +3,7 @@ import React, { PureComponent } from 'react'
 import AlignmentTool from 'common/components/AlignmentTool'
 import XYController from 'common/components/XYController'
 import GreyMapSlider from 'common/components/GreyMapSlider'
+import JDotterPlotResults from 'JDotterPanel/components/JDotterPlotResults'
 import JDotterPlotInfo from 'JDotterPanel/components/JDotterPlotInfo';
 
 import log from 'common/dev/Logger'
