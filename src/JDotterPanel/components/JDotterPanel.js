@@ -20,7 +20,13 @@ class JDotterPanel extends PureComponent {
 		this.numVisible = 37
 		this.baseSize = 22
 
-		this.state = { x: 0, y: 0 }
+		// Init state
+		this.state = {
+			x: this.props.initX,
+			y: this.props.initY,
+			blackPoint: this.props.initBlackPoint,
+			whitePoint: this.props.initWhitePoint,
+	}
 	}
 
 	updateX(x) {
@@ -43,6 +49,14 @@ class JDotterPanel extends PureComponent {
 		this.setState({ ...this.state, x, y })
 		}
 
+	handleScrubBlack(blackPoint) {
+		this.setState({ ...this.state, blackPoint })
+	}
+	
+	handleScrubWhite(whitePoint) {
+		this.setState({ ...this.state, whitePoint })
+	}
+
 	render() {
 		return (
 			<div>
@@ -55,8 +69,23 @@ class JDotterPanel extends PureComponent {
 						xhairsSize={20}
 						onXhairsMove={this.handleXhairsMove.bind(this)}
 					>
-						Results go here
+						<JDotterPlotResults
+							blackPoint={this.state.blackPoint}
+							whitePoint={this.state.whitePoint}
+							image={this.props.image}
+						/>
 					</XYController>
+				</div>
+
+				<div>
+					<GreyMapSlider
+						width={200}
+						height={50}
+						blackPoint={this.state.blackPoint}
+						whitePoint={this.state.whitePoint}
+						onScrubBlack={this.handleScrubBlack.bind(this)}
+						onScrubWhite={this.handleScrubWhite.bind(this)}
+					/>
 				</div>
 
 				<div>
