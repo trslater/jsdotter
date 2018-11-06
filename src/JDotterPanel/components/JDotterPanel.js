@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 // TODO: This is wonky... find a better solution
 import AlignmentTool from 'common/components/AlignmentTool'
 import XYController from 'common/components/XYController'
-import GreyMapSlider from 'common/components/GreyMapSlider'
+import GreyMapController from 'common/components/GreyMapController'
 import JDotterPlotResults from 'JDotterPanel/components/JDotterPlotResults'
 import JDotterPlotInfo from 'JDotterPanel/components/JDotterPlotInfo';
 
@@ -82,7 +82,7 @@ class JDotterPanel extends PureComponent {
 				</div>
 
 				<div>
-					<GreyMapSlider
+					<GreyMapController
 						width={200}
 						height={50}
 						blackPoint={this.state.blackPoint}
