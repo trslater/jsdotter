@@ -8,16 +8,15 @@ import SeqCompare from 'common/components/SeqCompare'
 import log from 'common/dev/Logger'
 
 const AlignmentTool = props => {
-	const scrubberTrackWidth = props.numVisible * props.baseSize
-
-	log.debug('Scrub width', scrubberTrackWidth)
-	log.debug('Seq A width', props.seqA.length)
+	const scrubberDefaults = {
+		trackWidth: props.numVisible * props.baseSize,
+		scrubberWidth: 30,
+	}
 
 	return (
 		<div className={styles.wrapper}>
 			<HorizontalScrubber
-				trackWidth={scrubberTrackWidth}
-				scrubberWidth={30}
+				{ ...scrubberDefaults }
 				valueRange={[0, props.seqA.length]}
 				value={props.seqALoc}
 				onScrub={props.onScrubA}
@@ -31,8 +30,7 @@ const AlignmentTool = props => {
 				baseSize={props.baseSize}
 				/>
 			<HorizontalScrubber
-				trackWidth={scrubberTrackWidth}
-				scrubberWidth={30}
+				{ ...scrubberDefaults }
 				valueRange={[0, props.seqB.length]}
 				value={props.seqBLoc}
 				onScrub={props.onScrubB}
