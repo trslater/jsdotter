@@ -69,8 +69,8 @@ class JDotterPanelContainer extends Component {
                         scoreMatrix={this.scoreMatrix}
 
                         // Intial state
-                        initHorizSeqLoc={50}
-                        initVerticalSeqLoc={50}
+                        initHorizSeqLoc={0}
+                        initVerticalSeqLoc={0}
                         initBlackPoint={0}
                         initWhitePoint={1}
 
