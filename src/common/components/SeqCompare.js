@@ -4,9 +4,7 @@ import styles from 'common/components/SeqCompare.module.css'
 
 import log from 'common/dev/Logger'
 
-// TODO: Add current position indicator and number
 // TODO: Make this faster!
-// TODO: Change 'loc' to 'position'
 
 const SeqCompare = props => {
 	const visibleA = padAndSliceCenteredAt(
