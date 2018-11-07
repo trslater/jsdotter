@@ -23,8 +23,10 @@ const AlignmentTool = props => {
 			/>
 			<SeqCompare
 				seqA={props.seqA}
+				seqALabel={'Horizontal'}
 				seqAPosition={props.seqAPosition}
 				seqB={props.seqB}
+				seqBLabel={'Vertical'}
 				seqBPosition={props.seqBPosition}
 				numVisible={props.numVisible}
 				baseSize={props.baseSize}
