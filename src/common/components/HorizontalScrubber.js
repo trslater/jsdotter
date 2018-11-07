@@ -47,11 +47,11 @@ class HorizontalScrubber extends PureComponent {
 	}
 
 	valueToScrubberPostion(value) {
-		return Math.floor(value * this.maxScrub / this.maxValue)
+		return value * this.maxScrub / this.maxValue
 	}
 
 	scrubberPositionToValue(position) {
-		return Math.floor(position * this.maxValue / this.maxScrub)
+		return position * this.maxValue / this.maxScrub
 	}
 }
 
