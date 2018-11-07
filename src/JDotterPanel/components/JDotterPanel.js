@@ -72,8 +72,8 @@ class JDotterPanel extends PureComponent {
 					<XYController
 						width={this.props.width}
 						height={this.props.height}
-						x={this.state.horizSeqLoc / this.props.zoom}
-						y={this.state.verticalSeqLoc / this.props.zoom}
+						x={Math.floor(this.state.horizSeqLoc / this.props.zoom)}
+						y={Math.floor(this.state.verticalSeqLoc / this.props.zoom)}
 						xhairsSize={50}
 						onXhairsMove={this.handleXhairsMove.bind(this)}
 					>

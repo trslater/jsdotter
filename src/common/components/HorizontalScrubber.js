@@ -35,7 +35,7 @@ class HorizontalScrubber extends PureComponent {
 					position={{
 						x: this.valueToScrubberPostion(this.props.value),
 						y: 0,
-					}}
+                    }}
 				>
 					<div
 						style={{ width: this.props.scrubberWidth }}
@@ -47,11 +47,11 @@ class HorizontalScrubber extends PureComponent {
 	}
 
 	valueToScrubberPostion(value) {
-		return (value * this.maxScrub) / this.maxValue
+		return Math.floor(value * this.maxScrub / this.maxValue)
 	}
 
 	scrubberPositionToValue(position) {
-		return (position * this.maxValue) / this.maxScrub
+		return Math.floor(position * this.maxValue / this.maxScrub)
 	}
 }
 
