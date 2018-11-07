@@ -18,21 +18,21 @@ const AlignmentTool = props => {
 			<HorizontalScrubber
 				{...scrubberDefaults}
 				valueRange={[0, props.seqA.length]}
-				value={props.seqALoc}
+				value={props.seqAPosition}
 				onScrub={props.onScrubA}
 			/>
 			<SeqCompare
 				seqA={props.seqA}
-				seqALoc={props.seqALoc}
+				seqAPosition={props.seqAPosition}
 				seqB={props.seqB}
-				seqBLoc={props.seqBLoc}
+				seqBPosition={props.seqBPosition}
 				numVisible={props.numVisible}
 				baseSize={props.baseSize}
 			/>
 			<HorizontalScrubber
 				{...scrubberDefaults}
 				valueRange={[0, props.seqB.length]}
-				value={props.seqBLoc}
+				value={props.seqBPosition}
 				onScrub={props.onScrubB}
 			/>
 		</div>

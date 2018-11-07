@@ -23,38 +23,38 @@ class JDotterPanel extends PureComponent {
 
 		// Constants
 		this.horizRevComp = this.getRevComp(this.props.horizSeq)
-		this.verticalRevComp = this.getRevComp(this.props.verticalSeq)
+		this.vertRevComp = this.getRevComp(this.props.vertSeq)
 		this.numVisible = 37
 		this.baseSize = 22
 
 		// Init state
 		this.state = {
-			horizSeqLoc: this.props.initHorizSeqLoc,
-			verticalSeqLoc: this.props.initVerticalSeqLoc,
+			horizSeqPosition: this.props.initHorizSeqPosition,
+			vertSeqPosition: this.props.initVerticalSeqPosition,
 			blackPoint: this.props.initBlackPoint,
 			whitePoint: this.props.initWhitePoint,
 		}
 	}
 
-	updateHorizSeqLoc(horizSeqLoc) {
-		this.setState({ ...this.state, horizSeqLoc })
+	updateHorizSeqPosition(horizSeqPosition) {
+		this.setState({ ...this.state, horizSeqPosition })
 	}
 
-	updateVerticalSeqLoc(verticalSeqLoc) {
-		this.setState({ ...this.state, verticalSeqLoc })
+	updateVerticalSeqPosition(vertSeqPosition) {
+		this.setState({ ...this.state, vertSeqPosition })
 	}
 
-	handleScrubA(seqLoc) {
-		this.updateHorizSeqLoc(seqLoc)
+	handleScrubA(seqPosition) {
+		this.updateHorizSeqPosition(seqPosition)
 	}
 
-	handleScrubB(seqLoc) {
-		this.updateVerticalSeqLoc(seqLoc)
+	handleScrubB(seqPosition) {
+		this.updateVerticalSeqPosition(seqPosition)
 	}
 
 	handleXhairsMove(e, { x, y }) {
-		this.updateHorizSeqLoc(x * this.props.zoom)
-		this.updateVerticalSeqLoc(y * this.props.zoom)
+		this.updateHorizSeqPosition(x * this.props.zoom)
+		this.updateVerticalSeqPosition(y * this.props.zoom)
 	}
 
 	handleScrubBlack(blackPoint) {
@@ -72,8 +72,8 @@ class JDotterPanel extends PureComponent {
 					<XYController
 						width={this.props.width}
 						height={this.props.height}
-						x={Math.floor(this.state.horizSeqLoc / this.props.zoom)}
-						y={Math.floor(this.state.verticalSeqLoc / this.props.zoom)}
+						x={Math.floor(this.state.horizSeqPosition / this.props.zoom)}
+						y={Math.floor(this.state.vertSeqPosition / this.props.zoom)}
 						xhairsSize={50}
 						onXhairsMove={this.handleXhairsMove.bind(this)}
 					>
@@ -100,10 +100,10 @@ class JDotterPanel extends PureComponent {
 					<h2>Sequence</h2>
 					<AlignmentTool
 						seqA={this.props.horizSeq}
-						seqALoc={this.state.horizSeqLoc}
+						seqAPosition={this.state.horizSeqPosition}
 						onScrubA={this.handleScrubA.bind(this)}
-						seqB={this.props.verticalSeq}
-						seqBLoc={this.state.verticalSeqLoc}
+						seqB={this.props.vertSeq}
+						seqBPosition={this.state.vertSeqPosition}
 						onScrubB={this.handleScrubB.bind(this)}
 						numVisible={this.numVisible}
 						baseSize={this.baseSize}
@@ -114,10 +114,10 @@ class JDotterPanel extends PureComponent {
 					<h2>Reverse Complement Sequence</h2>
 					<AlignmentTool
 						seqA={this.horizRevComp}
-						seqALoc={this.state.horizSeqLoc}
+						seqAPosition={this.state.horizSeqPosition}
 						onScrubA={this.handleScrubA.bind(this)}
-						seqB={this.verticalRevComp}
-						seqBLoc={this.state.verticalSeqLoc}
+						seqB={this.vertRevComp}
+						seqBPosition={this.state.vertSeqPosition}
 						onScrubB={this.handleScrubB.bind(this)}
 						numVisible={this.numVisible}
 						baseSize={this.baseSize}
@@ -128,7 +128,7 @@ class JDotterPanel extends PureComponent {
 					<h2>Plot Info</h2>
 					<JDotterPlotInfo
 						horizSeqNames={this.props.horizSeqNames}
-						verticalSeqNames={this.props.verticalSeqNames}
+						vertSeqNames={this.props.vertSeqNames}
 						windowSize={this.props.windowSize}
 						zoom={this.props.zoom}
 						pixelFactor={this.props.pixelFactor}

@@ -13,7 +13,7 @@ const SeqCompare = props => {
 		props.seqA,
 		props.numVisible,
 		' ',
-		props.seqALoc,
+		props.seqAPosition,
 	)
 		.toUpperCase()
 		.split('')
@@ -22,7 +22,7 @@ const SeqCompare = props => {
 		props.seqB,
 		props.numVisible,
 		' ',
-		props.seqBLoc,
+		props.seqBPosition,
 	)
 		.toUpperCase()
 		.split('')
@@ -42,7 +42,7 @@ const SeqCompare = props => {
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.info}>
-				{props.seqALoc}
+				{props.seqAPosition}
 			</div>
 
 			<div className={styles.basePairList}>
@@ -50,7 +50,7 @@ const SeqCompare = props => {
 			</div>
 
 			<div className={styles.info}>
-				{props.seqBLoc}
+				{props.seqBPosition}
 			</div>
 		</div>
 	)

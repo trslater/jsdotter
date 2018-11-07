@@ -4,7 +4,7 @@ import styles from './JDotterPlotInfo.module.css'
 
 const JDotterPlotInfo = props => {
     const horizSeqNameListItems = props.horizSeqNames.map((name, i) => <li key={i}>{name}</li>)
-    const verticalSeqNameListItems = props.verticalSeqNames.map((name, i) => <li key={i}>{name}</li>)
+    const vertSeqNameListItems = props.vertSeqNames.map((name, i) => <li key={i}>{name}</li>)
     const characteristicsListItems = [
         <li key="0">Window Size: {props.windowSize}</li>,
         <li key="1">Zoom Factor: {props.zoom}</li>,
@@ -20,7 +20,7 @@ const JDotterPlotInfo = props => {
             </ul>
             <h3>Vertical Sequences</h3>
             <ul>
-                {verticalSeqNameListItems}
+                {vertSeqNameListItems}
             </ul>
             <h3>Characteristics</h3>
             <ul>

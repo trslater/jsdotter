@@ -26,11 +26,11 @@ class JDotterPanelContainer extends Component {
         // TODO: fetch stuff from JDotter API
         
         this.horizSeqNames = ['Super virus X', 'Ultra virulent strain from hell']
-        this.verticalSeqNames = ['Killer mutant flu', 'Common cold']
+        this.vertSeqNames = ['Killer mutant flu', 'Common cold']
 
         // TODO: Make this neater
         this.horizSeq = dotterData.horizontal
-        this.verticalSeq = dotterData.horizontal
+        this.vertSeq = dotterData.horizontal
         this.zoom = dotterData.zoom
         this.windowSize = dotterData.windowSize
         this.width = dotterData.width
@@ -56,8 +56,8 @@ class JDotterPanelContainer extends Component {
                         // Sequences
                         horizSeqNames={this.horizSeqNames}
                         horizSeq={this.horizSeq}
-                        verticalSeqNames={this.verticalSeqNames}
-                        verticalSeq={this.verticalSeq}
+                        vertSeqNames={this.vertSeqNames}
+                        vertSeq={this.vertSeq}
 
                         // Plot data
                         zoom={this.zoom}
@@ -69,8 +69,8 @@ class JDotterPanelContainer extends Component {
                         scoreMatrix={this.scoreMatrix}
 
                         // Intial state
-                        initHorizSeqLoc={0}
-                        initVerticalSeqLoc={0}
+                        initHorizSeqPosition={0}
+                        initVerticalSeqPosition={0}
                         initBlackPoint={0}
                         initWhitePoint={1}
 
