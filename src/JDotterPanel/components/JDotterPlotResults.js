@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react'
 
 import log from 'common/dev/Logger'
 
+// TODO: Add loading placeholder for image and loading animation
+
 class JDotterPlotResults extends PureComponent {
 	state = {
 		canvasInitialized: false,
@@ -19,12 +21,12 @@ class JDotterPlotResults extends PureComponent {
 				const adjustedPixelColor =
 					(origPixelColor - 255 * this.props.blackPoint) /
 					(this.props.whitePoint - this.props.blackPoint)
-	
+
 				for (let j = i; j < i + 3; j++) {
 					this.imageData.data[j] = adjustedPixelColor
 				}
 			}
-	
+
 			this.context = this.canvas.current.getContext('2d')
 			this.context.putImageData(this.imageData, 0, 0)
 		}
@@ -70,7 +72,11 @@ class JDotterPlotResults extends PureComponent {
 					/>
 				</div>
 
-				<canvas ref={this.canvas} />
+				<canvas
+					width={this.props.width}
+					height={this.props.height}
+					ref={this.canvas}
+				/>
 			</div>
 		)
 	}
