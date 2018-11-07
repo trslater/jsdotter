@@ -6,10 +6,10 @@ const JDotterPlotInfo = props => {
     const horizSeqNameListItems = props.horizSeqNames.map((name, i) => <li key={i}>{name}</li>)
     const verticalSeqNameListItems = props.verticalSeqNames.map((name, i) => <li key={i}>{name}</li>)
     const characteristicsListItems = [
-        <li>Window Size: {props.windowSize}</li>,
-        <li>Zoom Factor: {props.zoom}</li>,
-        <li>Pixel Factor: {props.pixelFactor}</li>,
-        <li>Scoring Matrix: {props.scoreMatrixName}</li>,
+        <li key="0">Window Size: {props.windowSize}</li>,
+        <li key="1">Zoom Factor: {props.zoom}</li>,
+        <li key="2">Pixel Factor: {props.pixelFactor}</li>,
+        <li key="3">Scoring Matrix: {props.scoreMatrixName}</li>,
     ]
 
     return (
