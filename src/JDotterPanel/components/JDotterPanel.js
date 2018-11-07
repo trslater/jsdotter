@@ -69,23 +69,35 @@ class JDotterPanel extends PureComponent {
 	render() {
 		log.debug('Rendering JDotterPanel')
 
+		const {
+			width,
+			height,
+			pixels,
+			horizSeqNames,
+			horizSeq,
+			vertSeqNames,
+			vertSeq,
+			windowSize,
+			zoom,
+			pixelFactor,
+			scoreMatrixName,
+		} = this.props
+
+		const x = Math.floor(this.state.horizSeqPosition / this.props.zoom)
+		const y = Math.floor(this.state.vertSeqPosition / this.props.zoom)
+
 		return (
 			<div>
 				<div>
 					<XYController
-						width={this.props.width}
-						height={this.props.height}
-						x={Math.floor(this.state.horizSeqPosition / this.props.zoom)}
-						y={Math.floor(this.state.vertSeqPosition / this.props.zoom)}
+						{...{ x, y, width, height }}
 						xhairsSize={50}
 						onXhairsMove={this.handleXhairsMove.bind(this)}
 					>
 						<JDotterPlotResults
-							width={this.props.width}
-							height={this.props.height}
+							{...{ width, height, pixels }}
 							blackPoint={this.state.blackPoint}
 							whitePoint={this.state.whitePoint}
-							pixels={this.props.pixels}
 						/>
 					</XYController>
 				</div>
@@ -104,10 +116,10 @@ class JDotterPanel extends PureComponent {
 				<div>
 					<h2>Sequence</h2>
 					<AlignmentTool
-						seqA={this.props.horizSeq}
+						seqA={horizSeq}
 						seqAPosition={this.state.horizSeqPosition}
 						onScrubA={this.handleScrubA.bind(this)}
-						seqB={this.props.vertSeq}
+						seqB={vertSeq}
 						seqBPosition={this.state.vertSeqPosition}
 						onScrubB={this.handleScrubB.bind(this)}
 						numVisible={this.numVisible}
@@ -132,12 +144,14 @@ class JDotterPanel extends PureComponent {
 				<div>
 					<h2>Plot Info</h2>
 					<JDotterPlotInfo
-						horizSeqNames={this.props.horizSeqNames}
-						vertSeqNames={this.props.vertSeqNames}
-						windowSize={this.props.windowSize}
-						zoom={this.props.zoom}
-						pixelFactor={this.props.pixelFactor}
-						scoreMatrixName={this.props.scoreMatrixName}
+						{...{
+							horizSeqNames,
+							vertSeqNames,
+							windowSize,
+							zoom,
+							pixelFactor,
+							scoreMatrixName,
+						}}
 					/>
 				</div>
 			</div>
