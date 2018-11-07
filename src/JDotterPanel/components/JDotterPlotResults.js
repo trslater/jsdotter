@@ -2,68 +2,74 @@ import React, { PureComponent } from 'react'
 
 import log from 'common/dev/Logger'
 
-// FIXME: Sometimes get an error:
-//          "IndexSizeError: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The source width is 0."
-
 class JDotterPlotResults extends PureComponent {
-	constructor(props) {
-		super(props)
+	state = {
+		canvasInitialized: false,
+	}
 
+	componentWillMount() {
+		this.image = React.createRef()
 		this.canvas = React.createRef()
 	}
 
-	componentDidMount() {
+	componentDidUpdate() {
+		if (this.state.canvasInitialized) {
+			for (let i = 0; i < this.origPixels.length; i += 4) {
+				const origPixelColor = this.origPixels[i]
+				const adjustedPixelColor =
+					(origPixelColor - 255 * this.props.blackPoint) /
+					(this.props.whitePoint - this.props.blackPoint)
+	
+				for (let j = i; j < i + 3; j++) {
+					this.imageData.data[j] = adjustedPixelColor
+				}
+			}
+	
+			this.context = this.canvas.current.getContext('2d')
+			this.context.putImageData(this.imageData, 0, 0)
+		}
+	}
+
+	handleImageLoad() {
 		this.context = this.canvas.current.getContext('2d')
 
-		this.canvas.current.width = this.props.image.width
-		this.canvas.current.height = this.props.image.height
+		this.canvas.current.width = this.image.current.width
+		this.canvas.current.height = this.image.current.height
 
 		this.context.drawImage(
-			this.props.image,
+			this.image.current,
 			0,
 			0,
-			this.props.image.width,
-			this.props.image.height,
+			this.image.current.width,
+			this.image.current.height,
 			0,
 			0,
-			this.props.image.width,
-			this.props.image.height,
+			this.image.current.width,
+			this.image.current.height,
 		)
 		this.imageData = this.context.getImageData(
 			0,
 			0,
-			this.canvas.current.width,
-			this.canvas.current.height,
-        )
-        
-        this.origPixels = [...this.imageData.data]
+			this.image.current.width,
+			this.image.current.height,
+		)
+		this.origPixels = [...this.imageData.data]
 
-		this.numPixels = Math.floor(this.imageData.data.length / 4)
-	}
-
-	componentDidUpdate() {
-		const blackPoint8Bit = this.props.blackPoint * 255
-		const whitePoint8Bit = this.props.whitePoint * 255
-
-		for (let i = 0; i < this.numPixels; i++) {
-			const curr = this.origPixels[4 * i]
-			const adj =
-				(255 / (whitePoint8Bit - blackPoint8Bit)) *
-				(curr - blackPoint8Bit)
-
-			for (let j = 0; j < 3; j++) {
-				this.imageData.data[4 * i + j] = adj
-			}
-		}
-
-		// log.debug(this.canvas.current)
-		this.context = this.canvas.current.getContext('2d')
-		this.context.putImageData(this.imageData, 0, 0)
+		this.setState({ ...this.state, canvasInitialized: true })
 	}
 
 	render() {
 		return (
 			<div>
+				<div style={{ display: 'none' }}>
+					<img
+						src={'data:image/png;base64,' + this.props.pixels}
+						ref={this.image}
+						alt="Stuffs"
+						onLoad={this.handleImageLoad.bind(this)}
+					/>
+				</div>
+
 				<canvas ref={this.canvas} />
 			</div>
 		)

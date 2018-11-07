@@ -10,6 +10,7 @@ import log from 'common/dev/Logger'
 
 // TODO: Improve performance
 // 		- Convert everything to PureComponents
+// 		- Look for places to use shouldComponentUpdate() { return false }
 // TODO: Figure out better way of dealing with dimensions, styling, layout, etc.
 // 			Maybe fine as is (CSS modules)?
 // TODO: Implement keyboard controls
@@ -66,6 +67,8 @@ class JDotterPanel extends PureComponent {
 	}
 
 	render() {
+		log.debug('Rendering JDotterPanel')
+
 		return (
 			<div>
 				<div>
@@ -78,9 +81,11 @@ class JDotterPanel extends PureComponent {
 						onXhairsMove={this.handleXhairsMove.bind(this)}
 					>
 						<JDotterPlotResults
+							width={this.props.width}
+							height={this.props.height}
 							blackPoint={this.state.blackPoint}
 							whitePoint={this.state.whitePoint}
-							image={this.props.image}
+							pixels={this.props.pixels}
 						/>
 					</XYController>
 				</div>
