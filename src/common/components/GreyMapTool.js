@@ -4,7 +4,7 @@ import HorizontalScrubber from 'common/components/HorizontalScrubber'
 
 // FIXME: Gradient and actual image don't swap black and white at the same point
 
-class GreyMapSlider extends PureComponent {
+class GreyMapTool extends PureComponent {
 	constructor(props) {
 		super(props)
 
@@ -68,4 +68,4 @@ class GreyMapSlider extends PureComponent {
 	}
 }
 
-export default GreyMapSlider
+export default GreyMapTool
