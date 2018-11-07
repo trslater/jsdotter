@@ -1,65 +1,97 @@
 import React from 'react'
 
 import styles from 'common/components/SeqCompare.module.css'
-// import log from 'common/dev/Logger'
 
-// TODO: Add current location indicator
+import log from 'common/dev/Logger'
+
+// TODO: Add current position indicator and number
+// TODO: Make this faster!
+// TODO: Change 'loc' to 'position'
 
 const SeqCompare = props => {
-	
-	// TODO: Refactor
-	// TODO: Use loop for duplicate code
 	const visibleA = padAndSliceCenteredAt(
 		props.seqA,
 		props.numVisible,
 		' ',
 		props.seqALoc,
-	).toUpperCase()
+	)
+		.toUpperCase()
+		.split('')
 
 	const visibleB = padAndSliceCenteredAt(
 		props.seqB,
 		props.numVisible,
 		' ',
 		props.seqBLoc,
-	).toUpperCase()
+	)
+		.toUpperCase()
+		.split('')
 
-	const basePairs = []
-	for (let i = 0; i < visibleA.length; i++) {
-		const baseA = visibleA[i]
-		const baseB = visibleB[i]
-
-		const basePairClasses = [styles.basePair]
-
-		const isCenter = i === Math.floor(props.width / 2)
-		if (isCenter) {
-			basePairClasses.push(styles.center)
-		}
-
-		if (
-			baseA !== ' ' &&
-			baseB !== ' ' &&
-			baseA === baseB
-		) {
-			basePairClasses.push(styles.match)
-		}
-
-		basePairs.push(
-			<div key={i} className={basePairClasses.join(' ')}>
-				{makeBase(
-					styles.base,
-					props.baseSize,
-					baseA,
-				)}
-				{makeBase(
-					styles.base,
-					props.baseSize,
-					baseB,
-				)}
-			</div>,
+	const basePairs = visibleA.map((baseA, i) => {
+		return (
+			<BasePair
+				key={i}
+				popOut={i === Math.floor(props.numVisible / 2)}
+				baseA={baseA}
+				baseB={visibleB[i]}
+				baseSize={props.baseSize}
+			/>
 		)
+	})
+
+	return (
+		<div className={styles.wrapper}>
+			<div className={styles.info}>
+				{props.seqALoc}
+			</div>
+
+			<div className={styles.basePairList}>
+				{basePairs}
+			</div>
+
+			<div className={styles.info}>
+				{props.seqBLoc}
+			</div>
+		</div>
+	)
+}
+
+const BasePair = props => {
+	const basePairClasses = [styles.basePair]
+	if (
+		props.baseA === props.baseB &&
+		props.baseA !== ' ' &&
+		props.baseB !== ' '
+	) {
+		basePairClasses.push(styles.match)
 	}
 
-	return <div className={styles.wrapper}>{basePairs}</div>
+	if (props.popOut) {
+		basePairClasses.push(styles.popOut)
+	}
+
+	return (
+		<div className={basePairClasses.join(' ')}>
+			<Base size={props.baseSize} type={props.baseA} />
+			<Base size={props.baseSize} type={props.baseB} />
+		</div>
+	)
+}
+
+const Base = props => {
+	return (
+		<div
+			className={styles.base}
+			style={{
+				fontSize: props.size * 0.7,
+				lineHeight: props.size + 'px',
+				width: props.size,
+				height: props.size,
+			}}
+		>
+			{props.type}
+		</div>
+	)
 }
 
 // TODO: Refactor
@@ -72,21 +104,5 @@ const padAndSliceCenteredAt = (string, targetLength, padString, center) => {
 		.slice(sliceStart, sliceStart + targetLength)
 		.padEnd(targetLength, padString)
 }
-
-// TODO: Refactor
-const makeBase = (styles, size, value) => (
-	<div
-		className={styles}
-		style={{
-			fontSize: size * 0.6,
-			// FIXME: Shouldn't need these -2 offsets to compensate for border. There must be a better way
-			lineHeight: size - 2 + 'px',
-			width: size - 2,
-			height: size - 2,
-		}}
-	>
-		{value}
-	</div>
-)
 
 export default SeqCompare
