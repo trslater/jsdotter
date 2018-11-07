@@ -50,34 +50,31 @@ class JDotterPanelContainer extends Component {
 	render() {
         log.debug('rendering JDotter Panel Container')
         return (
-            <div>
-                {this.state.dataLoaded &&
-                    <JDotterPanel
-                        // Sequences
-                        horizSeqNames={this.horizSeqNames}
-                        horizSeq={this.horizSeq}
-                        vertSeqNames={this.vertSeqNames}
-                        vertSeq={this.vertSeq}
+            this.state.dataLoaded &&
+                <JDotterPanel
+                    // Sequences
+                    horizSeqNames={this.horizSeqNames}
+                    horizSeq={this.horizSeq}
+                    vertSeqNames={this.vertSeqNames}
+                    vertSeq={this.vertSeq}
 
-                        // Plot data
-                        zoom={this.zoom}
-                        windoSize={this.windoSize}
-                        width={this.width}
-                        height={this.height}
-                        pixelFactor={this.pixelFactor}
-                        scoreMatrixName={this.scoreMatrixName}
-                        scoreMatrix={this.scoreMatrix}
+                    // Plot data
+                    zoom={this.zoom}
+                    windoSize={this.windoSize}
+                    width={this.width}
+                    height={this.height}
+                    pixelFactor={this.pixelFactor}
+                    scoreMatrixName={this.scoreMatrixName}
+                    scoreMatrix={this.scoreMatrix}
 
-                        // Intial state
-                        initHorizSeqPosition={0}
-                        initVerticalSeqPosition={0}
-                        initBlackPoint={0}
-                        initWhitePoint={1}
+                    // Intial state
+                    initHorizSeqPosition={0}
+                    initVerticalSeqPosition={0}
+                    initBlackPoint={0}
+                    initWhitePoint={1}
 
-                        image={this.image}
-                    />
-                }
-            </div>
+                    image={this.image}
+                />
 		)
 	}
 }
