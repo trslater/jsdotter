@@ -18,8 +18,6 @@ BACKBURNER: Redux
 */
 
 import React, { Component } from 'react'
-// FIXME:
-// import logo from './logo.svg';
 import 'App.css'
 
 import JDotterLauncher from 'common/components/JDotterLauncher'
