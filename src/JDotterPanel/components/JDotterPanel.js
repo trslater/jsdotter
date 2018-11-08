@@ -58,6 +58,15 @@ class JDotterPanel extends PureComponent {
 		this.updateVerticalSeqPosition(y * this.props.zoom)
 	}
 
+	handleXYClick(e) {
+		const horizSeqPosition = (e.clientX - e.currentTarget.offsetLeft) * this.props.zoom
+		const vertSeqPosition = (e.clientY - e.currentTarget.offsetTop) * this.props.zoom
+		
+		log.debug('Clicking on', e.currentTarget)
+		log.debug('(x, y)', horizSeqPosition, vertSeqPosition)
+		this.setState({ ...this.state, horizSeqPosition, vertSeqPosition})
+	}
+
 	handleScrubBlack(blackPoint) {
 		this.setState({ ...this.state, blackPoint })
 	}
@@ -93,6 +102,7 @@ class JDotterPanel extends PureComponent {
 						{...{ x, y, width, height }}
 						xhairsSize={50}
 						onXhairsMove={this.handleXhairsMove.bind(this)}
+						onMouseDown={this.handleXYClick.bind(this)}
 					>
 						<JDotterPlotResults
 							{...{ width, height, pixels }}
