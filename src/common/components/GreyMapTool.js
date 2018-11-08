@@ -2,8 +2,6 @@ import React, { PureComponent } from 'react'
 
 import HorizontalScrubber from 'common/components/HorizontalScrubber'
 
-// FIXME: Gradient and actual image don't swap black and white at the same point
-
 class GreyMapTool extends PureComponent {
 	constructor(props) {
 		super(props)
