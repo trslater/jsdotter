@@ -11,14 +11,10 @@ import JDotterPlotInfo from 'JDotterPanel/components/JDotterPlotInfo'
 import log from 'common/dev/Logger'
 
 // TODO: Improve performance
-// 		- Convert everything to PureComponents
+// 		- Convert to stateless functional where possible
+// 		- Else, convert everything to PureComponents where possible
 // 		- Look for places to use shouldComponentUpdate() { return false }
-// TODO: Figure out better way of dealing with dimensions, styling, layout, etc.
-// 			Maybe fine as is (CSS modules)?
-// TODO: Implement keyboard controls
-// TODO: Improve accuracy
 // TODO: Inspect and clean up state
-// TODO: Make as many components pure or functional/stateless as possible
 // FIXME: There is a discrepency between scaling of the xycontroller and the seq lengths
 
 class JDotterPanel extends PureComponent {
