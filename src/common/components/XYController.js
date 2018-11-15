@@ -42,6 +42,7 @@ class XYController extends PureComponent {
 		this.yPxMax = yMax / this.yValuePixelRatio
 
 		document.addEventListener('mousemove', this.handleMouseMove.bind(this))
+		document.addEventListener('mouseup', this.handleMouseUp.bind(this))
 	}
 
 	componentDidMount() {
@@ -64,7 +65,6 @@ class XYController extends PureComponent {
 					position: 'relative',
 				}}
 				onMouseDown={this.handleMouseDown.bind(this)}
-				onMouseUp={this.handleMouseUp.bind(this)}
 			>
 				<div
 					style={{
