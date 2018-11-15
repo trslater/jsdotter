@@ -23,3 +23,7 @@
 .coords:hover {
     cursor: default;
 }
+
+.axis {
+    position: absolute;
+}

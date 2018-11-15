@@ -1,89 +1,173 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 
 import styles from './XYController.module.css'
 
-import Draggable from 'react-draggable'
-
 import log from 'common/dev/Logger'
 
-// TODO: New feature: axis markings
+// TODO: New feature: axis markings @current
+// 			- Use SVG
+// FIXME: When page is scrolled, dragging is offset by scroll amount
 // FIXME: Move xhairs to mouse click works, but it does not initiate drag
 
 // const x = Math.floor(this.state.horizSeqPosition / this.props.zoom)
 // 		const y = Math.floor(this.state.vertSeqPosition / this.props.zoom)
 
-const XYController = props => {
-	const xhairsOffset = props.xhairsSize / 2
+class XYController extends PureComponent {
 
-	return (
-		<div className={styles.wrapper}>
+	///////////////
+	// LIFECYCLE //
+	///////////////
+
+	constructor(props) {
+		super(props)
+
+		this.state = { dragging: false }
+
+		const {
+			width,
+			height,
+			xhairsSize,
+			xValueRange: [xMin, xMax],
+			yValueRange: [yMin, yMax],
+		} = this.props
+
+		this.field = React.createRef()
+
+		this.xValuePixelRatio = (xMax - xMin) / width
+		this.yValuePixelRatio = (yMax - yMin) / height
+		this.xhairsOffset = xhairsSize / 2
+		this.xPxMin = xMin / this.xValuePixelRatio
+		this.xPxMax = xMax / this.xValuePixelRatio
+		this.yPxMin = yMin / this.yValuePixelRatio
+		this.yPxMax = yMax / this.yValuePixelRatio
+
+		document.addEventListener('mousemove', this.handleMouseMove.bind(this))
+	}
+
+	componentDidMount() {
+		this.fieldBox = this.field.current.getBoundingClientRect()
+	}
+
+	render() {
+		const { width, height, x, y, xhairsSize } = this.props
+
+		const xPx = x / this.xValuePixelRatio
+		const yPx = y / this.yValuePixelRatio
+
+		return (
 			<div
+				ref={this.field}
 				className={styles.field}
-				onMouseDown={props.onMouseDown}
 				style={{
-					width: props.width,
-					height: props.height,
+					width: width,
+					height: height,
+					position: 'relative',
 				}}
+				onMouseDown={this.handleMouseDown.bind(this)}
+				onMouseUp={this.handleMouseUp.bind(this)}
 			>
-				<Draggable
-					bounds={{
-						left: 0,
-						right: props.width,
-						top: 0,
-						bottom: props.height,
+				<div
+					style={{
+						position: 'absolute',
+						left: xPx - this.xhairsOffset,
+						top: yPx - this.xhairsOffset,
 					}}
-					onDrag={props.onXhairsMove}
-					position={{ x: props.x, y: props.y }}
-					allowAnyClick={true}
 				>
-					<div
-						className={styles.xhairsWrapper}
-						style={{
-							width: props.xhairsSize,
-							height: props.xhairsSize,
-							marginLeft: -xhairsOffset,
-							marginTop: -xhairsOffset,
-						}}
-					>
-						<XHairs xhairsSize={props.xhairsSize} />
-
-						<div className={styles.coords}>
-							({props.xCoord}, {props.yCoord})
-						</div>
-					</div>
-				</Draggable>
+					<XHairs xhairsSize={xhairsSize} {...{ x, y }} />
+				</div>
 			</div>
-			{props.children}
-		</div>
-	)
+		)
+	}
+
+	////////////////////
+	// EVENt HANDLERS //
+	////////////////////
+
+	handleMouseDown(e) {
+		this.setState({ ...this.state, dragging: true })
+
+		const [xPx, yPx] = this.constrainXYPx(
+			e.pageX - this.fieldBox.left,
+			e.pageY - this.fieldBox.top,
+		)
+
+		this.props.onXhairsMove(
+			xPx * this.xValuePixelRatio,
+			yPx * this.yValuePixelRatio,
+		)
+	}
+
+	handleMouseMove(e) {
+		const [xPx, yPx] = this.constrainXYPx(
+			e.pageX - this.fieldBox.left,
+			e.pageY - this.fieldBox.top,
+		)
+
+		if (this.state.dragging) {
+			this.props.onXhairsMove(
+				xPx * this.xValuePixelRatio,
+				yPx * this.yValuePixelRatio,
+			)
+		}
+	}
+
+	handleMouseUp(e) {
+		this.setState({ ...this.state, dragging: false })
+	}
+
+	///////////
+	// UTILS //
+	///////////
+
+	constrainXYPx(x, y) {
+		return [
+			x < this.xPxMin ? this.xPxMin : x > this.xPxMax ? this.xPxMax : x,
+			y < this.yPxMin ? this.yPxMin : y > this.yPxMax ? this.yPxMax : y,
+		]
+	}
 }
 
-const XHairs = ({ xhairsSize }) => {
+const XHairs = ({ xhairsSize, x, y }) => {
 	return (
-		<svg width={xhairsSize} height={xhairsSize}>
-			<line
-				shape-rendering="crispEdges"
-				x1="0"
-				y1="50%"
-				x2="100%"
-				y2="50%"
+		<div>
+			<svg width={xhairsSize} height={xhairsSize}>
+				<line
+					shapeRendering="crispEdges"
+					x1="0"
+					y1="50%"
+					x2="100%"
+					y2="50%"
+					style={{
+						stroke: 'red',
+						strokeWidth: '1px',
+					}}
+				/>
+				<line
+					shapeRendering="crispEdges"
+					x1="50%"
+					y1="0"
+					x2="50%"
+					y2="100%"
+					style={{
+						stroke: 'red',
+						strokeWidth: '1px',
+					}}
+				/>
+			</svg>
+			<div
 				style={{
-					stroke: 'red',
-					strokeWidth: '1px',
+					color: 'red',
+					fontSize: 10,
+					whiteSpace: 'nowrap',
+					padding: 5,
+					position: 'absolute',
+					left: '50%',
+					top: '50%',
 				}}
-			/>
-			<line
-				shape-rendering="crispEdges"
-				x1="50%"
-				y1="0"
-				x2="50%"
-				y2="100%"
-				style={{
-					stroke: 'red',
-					strokeWidth: '1px',
-				}}
-			/>
-		</svg>
+			>
+				({Math.floor(x)}, {Math.floor(y)})
+			</div>
+		</div>
 	)
 }
 
