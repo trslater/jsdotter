@@ -40,7 +40,7 @@ const SeqCompare = props => {
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.info}>
-				{props.seqALabel} @ {props.seqAPosition}
+				{props.seqALabel} @ {Math.floor(props.seqAPosition)}
 			</div>
 
 			<div className={styles.basePairList}>
@@ -48,7 +48,7 @@ const SeqCompare = props => {
 			</div>
 
 			<div className={styles.info}>
-				{props.seqBLabel} @ {props.seqBPosition}
+				{props.seqBLabel} @ {Math.floor(props.seqBPosition)}
 			</div>
 		</div>
 	)
