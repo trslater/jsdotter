@@ -1,0 +1,13 @@
+.wrapper {
+    border-bottom: 1px solid black;
+}
+
+.tickLabel {
+    text-align: center;
+	white-space: nowrap;
+}
+
+.tickLine {
+    box-sizing: border-box;
+    border-left: 1px solid black
+}

@@ -6,6 +6,7 @@ import XYController from 'common/components/XYController'
 import GreyMapTool from 'common/components/GreyMapTool'
 import JDotterPlotResults from 'JDotterPanel/components/JDotterPlotResults'
 import Layers from 'common/components/Layers'
+import Axis from 'common/components/Axis'
 import JDotterPlotInfo from 'JDotterPanel/components/JDotterPlotInfo'
 
 import log from 'common/dev/Logger'
@@ -15,7 +16,6 @@ import log from 'common/dev/Logger'
 // 		- Else, convert everything to PureComponents where possible
 // 		- Look for places to use shouldComponentUpdate() { return false }
 // TODO: Inspect and clean up state
-// FIXME: There is a discrepency between scaling of the xycontroller and the seq lengths
 
 class JDotterPanel extends PureComponent {
 	state = {
@@ -146,23 +146,64 @@ class JDotterPanel extends PureComponent {
 					]}
 				/>
 
-				<Layers width={width + 25} height={height + 25}>
-					<JDotterPlotResults
-						{...{ width, height, pixels }}
-						blackPoint={this.state.blackPoint}
-						whitePoint={this.state.whitePoint}
-					/>
-					{/* <Axes {...{ width, height, zoom, axisWidth, tickWidth }} /> */}
-					<XYController
-						{...{ width, height }}
-						x={this.state.horizSeqPosition}
-						y={this.state.vertSeqPosition}
-						xValueRange={[0, this.horizMax]}
-						yValueRange={[0, this.vertMax]}
-						xhairsSize={80}
-						onXhairsMove={this.handleXhairsMove.bind(this)}
-					/>
-				</Layers>
+				<Layers
+					width={width + 25}
+					height={height + 25}
+					layers={[
+						{
+							content: (
+								<JDotterPlotResults
+									{...{ width, height, pixels }}
+									blackPoint={this.state.blackPoint}
+									whitePoint={this.state.whitePoint}
+								/>
+							),
+							leftOffset: 25,
+							topOffset: 25,
+						},
+						{
+							content: (
+								<Axis
+									type="top"
+									length={width}
+									thickness={25}
+									tickSize={100}
+									scale={zoom}
+								/>
+							),
+							leftOffset: 25,
+						},
+						{
+							content: (
+								<Axis
+									type="left"
+									length={width}
+									thickness={25}
+									tickSize={100}
+									scale={zoom}
+								/>
+							),
+							topOffset: 25,
+						},
+						{
+							content: (
+								<XYController
+									{...{ width, height }}
+									x={this.state.horizSeqPosition}
+									y={this.state.vertSeqPosition}
+									xValueRange={[0, this.horizMax]}
+									yValueRange={[0, this.vertMax]}
+									xhairsSize={80}
+									onXhairsMove={this.handleXhairsMove.bind(
+										this,
+									)}
+								/>
+							),
+							leftOffset: 25,
+							topOffset: 25,
+						},
+					]}
+				/>
 
 				<div>
 					<GreyMapTool

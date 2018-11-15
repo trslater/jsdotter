@@ -1,26 +1,26 @@
 import React from 'react'
-import childFriendly from 'material-ui/svg-icons/places/child-friendly'
 
-const Layers = ({ width, height, children }) => {
+import styles from './Layers.module.css'
+
+const Layers = ({ width, height, layers }) => {
 	return (
 		<div
+			className={styles.wrapper}
 			style={{
-				display: 'inline-block',
 				width: width,
 				height: height,
-				position: 'relative',
 			}}
 		>
-			{children.map((child, i) => (
+			{layers.map((layer, i) => (
 				<div
 					key={i}
+					className={styles.layer}
 					style={{
-						position: 'absolute',
-						top: 0,
-						left: 0,
+						top: layer.topOffset,
+						left: layer.leftOffset,
 					}}
 				>
-					{child}
+					{layer.content}
 				</div>
 			))}
 		</div>
