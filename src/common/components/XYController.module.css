@@ -1,29 +1,7 @@
-.wrapper {
-    display: inline-block;
-}
-
 .field {
-    position: absolute;
-}
-
-.xhairsWrapper {
     position: relative;
 }
 
-.coords {
-    color: red;
-    font-size: 14px;
-    white-space: nowrap;
-    position: absolute;
-    margin: 5px;
-    top: 50%;
-    left: 50%;
-}
-
-.coords:hover {
-    cursor: default;
-}
-
-.axis {
+.xhairsWrapper {
     position: absolute;
 }
