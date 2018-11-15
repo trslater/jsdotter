@@ -32,11 +32,11 @@ class JDotterPanel extends PureComponent {
 	constructor(props) {
 		super(props)
 
-		this.horizMin = 1
-		this.horizMax = this.props.horizSeq.length
+		this.horizMin = 0
+		this.horizMax = this.props.horizSeq.length - 1
 
-		this.vertMin = 1
-		this.vertMax = this.props.vertSeq.length
+		this.vertMin = 0
+		this.vertMax = this.props.vertSeq.length - 1
 
 		this.horizRevComp = this.getRevComp(this.props.horizSeq)
 		this.vertRevComp = this.getRevComp(this.props.vertSeq)

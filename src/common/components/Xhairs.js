@@ -38,7 +38,7 @@ const XHairs = ({ xhairsSize, x, y }) => {
 					top: '50%',
 				}}
 			>
-				({Math.floor(x)}, {Math.floor(y)})
+				({Math.floor(x) + 1}, {Math.floor(y) + 1})
 			</div>
 		</div>
 	)
