@@ -1,9 +1,11 @@
 import React, { PureComponent } from 'react'
 
+import KeyListener from 'common/components/KeyListener'
 import AlignmentTool from 'common/components/AlignmentTool'
 import XYController from 'common/components/XYController'
 import GreyMapTool from 'common/components/GreyMapTool'
 import JDotterPlotResults from 'JDotterPanel/components/JDotterPlotResults'
+import Layers from 'common/components/Layers'
 import JDotterPlotInfo from 'JDotterPanel/components/JDotterPlotInfo'
 
 import log from 'common/dev/Logger'
@@ -17,54 +19,56 @@ import log from 'common/dev/Logger'
 // TODO: Improve accuracy
 // TODO: Inspect and clean up state
 // TODO: Make as many components pure or functional/stateless as possible
+// FIXME: There is a discrepency between scaling of the xycontroller and the seq lengths
 
 class JDotterPanel extends PureComponent {
+	state = {
+		horizSeqPosition: this.props.initHorizSeqPosition,
+		vertSeqPosition: this.props.initVerticalSeqPosition,
+		blackPoint: this.props.initBlackPoint,
+		whitePoint: this.props.initWhitePoint,
+	}
+
 	constructor(props) {
 		super(props)
 
-		// Constants
+		this.horizMin = 1
+		this.horizMax = this.props.horizSeq.length
+
+		this.vertMin = 1
+		this.vertMax = this.props.vertSeq.length
+
 		this.horizRevComp = this.getRevComp(this.props.horizSeq)
 		this.vertRevComp = this.getRevComp(this.props.vertSeq)
+
 		this.numVisible = 37
 		this.baseSize = 22
-
-		// Init state
-		this.state = {
-			horizSeqPosition: this.props.initHorizSeqPosition,
-			vertSeqPosition: this.props.initVerticalSeqPosition,
-			blackPoint: this.props.initBlackPoint,
-			whitePoint: this.props.initWhitePoint,
-		}
 	}
 
-	updateHorizSeqPosition(horizSeqPosition) {
-		this.setState({ ...this.state, horizSeqPosition })
-	}
-
-	updateVerticalSeqPosition(vertSeqPosition) {
-		this.setState({ ...this.state, vertSeqPosition })
+	updateSeqPosition(horizSeqPosition, vertSeqPosition) {
+		this.setState({
+			...this.state,
+			horizSeqPosition:
+				undefined !== horizSeqPosition
+					? horizSeqPosition
+					: this.state.horizSeqPosition,
+			vertSeqPosition:
+				undefined !== vertSeqPosition
+					? vertSeqPosition
+					: this.state.vertSeqPosition,
+		})
 	}
 
 	handleScrubA(seqPosition) {
-		this.updateHorizSeqPosition(Math.floor(seqPosition))
+		this.updateSeqPosition(Math.floor(seqPosition))
 	}
 
 	handleScrubB(seqPosition) {
-		this.updateVerticalSeqPosition(Math.floor(seqPosition))
+		this.updateSeqPosition(Math.floor(seqPosition))
 	}
 
-	handleXhairsMove(e, { x, y }) {
-		this.updateHorizSeqPosition(x * this.props.zoom)
-		this.updateVerticalSeqPosition(y * this.props.zoom)
-	}
-
-	handleXYClick(e) {
-		const horizSeqPosition = (e.clientX - e.currentTarget.offsetLeft) * this.props.zoom
-		const vertSeqPosition = (e.clientY - e.currentTarget.offsetTop) * this.props.zoom
-		
-		log.debug('Clicking on', e.currentTarget)
-		log.debug('(x, y)', horizSeqPosition, vertSeqPosition)
-		this.setState({ ...this.state, horizSeqPosition, vertSeqPosition})
+	handleXhairsMove(x, y) {
+		this.updateSeqPosition(x, y)
 	}
 
 	handleScrubBlack(blackPoint) {
@@ -75,9 +79,40 @@ class JDotterPanel extends PureComponent {
 		this.setState({ ...this.state, whitePoint })
 	}
 
-	render() {
-		log.debug('Rendering JDotterPanel')
+	handleArrowLeft() {
+		if (this.state.horizSeqPosition > this.horizMin) {
+			this.setState({
+				...this.state,
+				horizSeqPosition: this.state.horizSeqPosition - 1,
+			})
+		}
+	}
+	handleArrowRight() {
+		if (this.state.horizSeqPosition < this.horizMax) {
+			this.setState({
+				...this.state,
+				horizSeqPosition: this.state.horizSeqPosition + 1,
+			})
+		}
+	}
+	handleArrowUp() {
+		if (this.state.vertSeqPosition > this.vertMin) {
+			this.setState({
+				...this.state,
+				vertSeqPosition: this.state.vertSeqPosition - 1,
+			})
+		}
+	}
+	handleArrowDown() {
+		if (this.state.vertSeqPosition < this.vertMax) {
+			this.setState({
+				...this.state,
+				vertSeqPosition: this.state.vertSeqPosition + 1,
+			})
+		}
+	}
 
+	render() {
 		const {
 			width,
 			height,
@@ -92,25 +127,46 @@ class JDotterPanel extends PureComponent {
 			scoreMatrixName,
 		} = this.props
 
-		const x = Math.floor(this.state.horizSeqPosition / this.props.zoom)
-		const y = Math.floor(this.state.vertSeqPosition / this.props.zoom)
-
 		return (
 			<div>
-				<div>
+				<KeyListener
+					keyMap={[
+						{
+							key: 'ArrowLeft',
+							handler: this.handleArrowLeft.bind(this),
+						},
+						{
+							key: 'ArrowRight',
+							handler: this.handleArrowRight.bind(this),
+						},
+						{
+							key: 'ArrowUp',
+							handler: this.handleArrowUp.bind(this),
+						},
+						{
+							key: 'ArrowDown',
+							handler: this.handleArrowDown.bind(this),
+						},
+					]}
+				/>
+
+				<Layers width={width + 25} height={height + 25}>
+					<JDotterPlotResults
+						{...{ width, height, pixels }}
+						blackPoint={this.state.blackPoint}
+						whitePoint={this.state.whitePoint}
+					/>
+					{/* <Axes {...{ width, height, zoom, axisWidth, tickWidth }} /> */}
 					<XYController
-						{...{ x, y, width, height }}
-						xhairsSize={50}
+						{...{ width, height }}
+						x={this.state.horizSeqPosition}
+						y={this.state.vertSeqPosition}
+						xValueRange={[0, this.horizMax]}
+						yValueRange={[0, this.vertMax]}
+						xhairsSize={80}
 						onXhairsMove={this.handleXhairsMove.bind(this)}
-						onMouseDown={this.handleXYClick.bind(this)}
-					>
-						<JDotterPlotResults
-							{...{ width, height, pixels }}
-							blackPoint={this.state.blackPoint}
-							whitePoint={this.state.whitePoint}
-						/>
-					</XYController>
-				</div>
+					/>
+				</Layers>
 
 				<div>
 					<GreyMapTool
@@ -128,6 +184,27 @@ class JDotterPanel extends PureComponent {
 					<AlignmentTool
 						seqA={horizSeq}
 						seqAPosition={this.state.horizSeqPosition}
+						seqAMin={this.horizMin}
+						seqAMax={this.horizMax}
+						onScrubA={this.handleScrubA.bind(this)}
+						seqB={vertSeq}
+						seqBPosition={this.state.vertSeqPosition}
+						seqBMin={this.vertMin}
+						seqBMax={this.vertMax}
+						onScrubB={this.handleScrubB.bind(this)}
+						numVisible={this.numVisible}
+						baseSize={this.baseSize}
+					/>
+				</div>
+
+				{/* <div>
+					<h2>Reverse Complement Sequence</h2>
+					<AlignmentTool
+						seqA={this.horizRevComp}
+						// FIXME: This don't work
+						seqAPosition={
+							horizSeq.length - this.state.horizSeqPosition - 1
+						}
 						onScrubA={this.handleScrubA.bind(this)}
 						seqB={vertSeq}
 						seqBPosition={this.state.vertSeqPosition}
@@ -135,21 +212,7 @@ class JDotterPanel extends PureComponent {
 						numVisible={this.numVisible}
 						baseSize={this.baseSize}
 					/>
-				</div>
-
-				<div>
-					<h2>Reverse Complement Sequence</h2>
-					<AlignmentTool
-						seqA={this.horizRevComp}
-						seqAPosition={this.state.horizSeqPosition}
-						onScrubA={this.handleScrubA.bind(this)}
-						seqB={this.vertRevComp}
-						seqBPosition={this.state.vertSeqPosition}
-						onScrubB={this.handleScrubB.bind(this)}
-						numVisible={this.numVisible}
-						baseSize={this.baseSize}
-					/>
-				</div>
+				</div> */}
 
 				<div>
 					<h2>Plot Info</h2>
