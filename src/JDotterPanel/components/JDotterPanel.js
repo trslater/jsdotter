@@ -64,7 +64,7 @@ class JDotterPanel extends PureComponent {
 	}
 
 	handleScrubB(seqPosition) {
-		this.updateSeqPosition(Math.floor(seqPosition))
+		this.updateSeqPosition(undefined, Math.floor(seqPosition))
 	}
 
 	handleXhairsMove(x, y) {
