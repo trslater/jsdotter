@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
 
-import log from 'common/dev/Logger'
+// import log from 'common/dev/Logger'
 
 class KeyListener extends Component {
     constructor(props) {
         super(props)
 
         document.addEventListener('keydown', event => {
-            for (let map of props.keyMap) {
-                if (map.key === event.key) {
-                    map.handler(event)
+            for (let keyMapping of props.keyMap) {
+                if (keyMapping.key === event.key) {
+                    keyMapping.handler(event)
                 }
             }
         })
