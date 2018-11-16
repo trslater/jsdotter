@@ -1,47 +1,51 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 
-const XHairs = ({ xhairsSize, x, y }) => {
-	return (
-		<div>
-			<svg width={xhairsSize} height={xhairsSize}>
-				<line
-					shapeRendering="crispEdges"
-					x1="0"
-					y1="50%"
-					x2="100%"
-					y2="50%"
+class XHairs extends PureComponent {
+	render() {
+		const { xhairsSize, x, y } = this.props
+		
+		return (
+			<div>
+				<svg width={xhairsSize} height={xhairsSize}>
+					<line
+						shapeRendering="crispEdges"
+						x1="0"
+						y1="50%"
+						x2="100%"
+						y2="50%"
+						style={{
+							stroke: 'red',
+							strokeWidth: '1px',
+						}}
+					/>
+					<line
+						shapeRendering="crispEdges"
+						x1="50%"
+						y1="0"
+						x2="50%"
+						y2="100%"
+						style={{
+							stroke: 'red',
+							strokeWidth: '1px',
+						}}
+					/>
+				</svg>
+				<div
 					style={{
-						stroke: 'red',
-						strokeWidth: '1px',
+						color: 'red',
+						fontSize: 10,
+						whiteSpace: 'nowrap',
+						padding: 5,
+						position: 'absolute',
+						left: '50%',
+						top: '50%',
 					}}
-				/>
-				<line
-					shapeRendering="crispEdges"
-					x1="50%"
-					y1="0"
-					x2="50%"
-					y2="100%"
-					style={{
-						stroke: 'red',
-						strokeWidth: '1px',
-					}}
-				/>
-			</svg>
-			<div
-				style={{
-					color: 'red',
-					fontSize: 10,
-					whiteSpace: 'nowrap',
-					padding: 5,
-					position: 'absolute',
-					left: '50%',
-					top: '50%',
-				}}
-			>
-				({Math.floor(x) + 1}, {Math.floor(y) + 1})
+				>
+					({Math.floor(x) + 1}, {Math.floor(y) + 1})
+				</div>
 			</div>
-		</div>
-	)
+		)
+	}
 }
 
 export default XHairs

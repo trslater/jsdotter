@@ -39,6 +39,15 @@ class JDotterPanel extends PureComponent {
 
 		this.numVisible = 37
 		this.baseSize = 22
+
+		this.handleScrubBlack = this.handleScrubBlack.bind(this)
+		this.handleScrubWhite = this.handleScrubWhite.bind(this)
+		this.handleArrowLeft = this.handleArrowLeft.bind(this)
+		this.handleArrowRight = this.handleArrowRight.bind(this)
+		this.handleArrowUp = this.handleArrowUp.bind(this)
+		this.handleArrowDown = this.handleArrowDown.bind(this)
+		this.handleScrubA = this.handleScrubA.bind(this)
+		this.handleScrubB = this.handleScrubB.bind(this)
 	}
 
 	updateSeqPosition(horizSeqPosition, vertSeqPosition) {
@@ -129,19 +138,19 @@ class JDotterPanel extends PureComponent {
 					keyMap={[
 						{
 							key: 'ArrowLeft',
-							handler: this.handleArrowLeft.bind(this),
+							handler: this.handleArrowLeft,
 						},
 						{
 							key: 'ArrowRight',
-							handler: this.handleArrowRight.bind(this),
+							handler: this.handleArrowRight,
 						},
 						{
 							key: 'ArrowUp',
-							handler: this.handleArrowUp.bind(this),
+							handler: this.handleArrowUp,
 						},
 						{
 							key: 'ArrowDown',
-							handler: this.handleArrowDown.bind(this),
+							handler: this.handleArrowDown,
 						},
 					]}
 				/>
@@ -211,8 +220,8 @@ class JDotterPanel extends PureComponent {
 						height={50}
 						blackPoint={this.state.blackPoint}
 						whitePoint={this.state.whitePoint}
-						onScrubBlack={this.handleScrubBlack.bind(this)}
-						onScrubWhite={this.handleScrubWhite.bind(this)}
+						onScrubBlack={this.handleScrubBlack}
+						onScrubWhite={this.handleScrubWhite}
 					/>
 				</div>
 
@@ -223,12 +232,12 @@ class JDotterPanel extends PureComponent {
 						seqAPosition={this.state.horizSeqPosition}
 						seqAMin={this.horizMin}
 						seqAMax={this.horizMax}
-						onScrubA={this.handleScrubA.bind(this)}
+						onScrubA={this.handleScrubA}
 						seqB={vertSeq}
 						seqBPosition={this.state.vertSeqPosition}
 						seqBMin={this.vertMin}
 						seqBMax={this.vertMax}
-						onScrubB={this.handleScrubB.bind(this)}
+						onScrubB={this.handleScrubB}
 						numVisible={this.numVisible}
 						baseSize={this.baseSize}
 					/>

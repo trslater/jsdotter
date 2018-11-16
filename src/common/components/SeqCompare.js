@@ -1,95 +1,72 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 
 import styles from 'common/components/SeqCompare.module.css'
+
+import BasePair from 'common/components/BasePair'
 
 import log from 'common/dev/Logger'
 
 // TODO: Make this faster!
 
-const SeqCompare = props => {
-	const visibleA = padAndSliceCenteredAt(
-		props.seqA,
-		props.numVisible,
-		' ',
-		props.seqAPosition,
-	)
-		.toUpperCase()
-		.split('')
+class SeqCompare extends PureComponent {
+	render() {
+		const {
+			seqA,
+			seqALabel,
+			seqAPosition,
+			seqB,
+			seqBLabel,
+			seqBPosition,
+			numVisible,
+			baseSize,
+		} = this.props
 
-	const visibleB = padAndSliceCenteredAt(
-		props.seqB,
-		props.numVisible,
-		' ',
-		props.seqBPosition,
-	)
-		.toUpperCase()
-		.split('')
-
-	const basePairs = visibleA.map((baseA, i) => {
-		return (
-			<BasePair
-				key={i}
-				popOut={i === Math.floor(props.numVisible / 2)}
-				baseA={baseA}
-				baseB={visibleB[i]}
-				baseSize={props.baseSize}
-			/>
+		const visibleA = padAndSliceCenteredAt(
+			seqA,
+			numVisible,
+			' ',
+			seqAPosition,
 		)
-	})
+			.toUpperCase()
+			.split('')
 
-	return (
-		<div className={styles.wrapper}>
-			<div className={styles.info}>
-				{props.seqALabel} @ {Math.floor(props.seqAPosition) + 1}
+		const visibleB = padAndSliceCenteredAt(
+			seqB,
+			numVisible,
+			' ',
+			seqBPosition,
+		)
+			.toUpperCase()
+			.split('')
+
+		const basePairs = visibleA.map((baseA, i) => {
+			return (
+				<BasePair
+					key={i}
+					popOut={i === Math.floor(numVisible / 2)}
+					baseA={baseA}
+					baseB={visibleB[i]}
+					baseSize={baseSize}
+				/>
+			)
+		})
+
+		return (
+			<div className={styles.wrapper}>
+				<div className={styles.info}>
+					{seqALabel} @ {Math.floor(seqAPosition) + 1}
+				</div>
+
+				<div className={styles.basePairList}>
+					{basePairs}
+				</div>
+
+				<div className={styles.info}>
+					{seqBLabel} @ {Math.floor(seqBPosition) + 1}
+				</div>
 			</div>
-
-			<div className={styles.basePairList}>
-				{basePairs}
-			</div>
-
-			<div className={styles.info}>
-				{props.seqBLabel} @ {Math.floor(props.seqBPosition) + 1}
-			</div>
-		</div>
-	)
-}
-
-const BasePair = props => {
-	const basePairClasses = [styles.basePair]
-	if (
-		props.baseA === props.baseB &&
-		props.baseA !== ' ' &&
-		props.baseB !== ' '
-	) {
-		basePairClasses.push(styles.match)
+		)
 	}
-
-	if (props.popOut) {
-		basePairClasses.push(styles.popOut)
-	}
-
-	return (
-		<div className={basePairClasses.join(' ')}>
-			<Base size={props.baseSize} type={props.baseA} />
-			<Base size={props.baseSize} type={props.baseB} />
-		</div>
-	)
-}
-
-const Base = props => {
-	return (
-		<div
-			className={styles.base}
-			style={{
-				fontSize: props.size * 0.7,
-				lineHeight: props.size + 'px',
-				width: props.size,
-				height: props.size,
-			}}
-		>
-			{props.type}
-		</div>
-	)
 }
 
 // TODO: Refactor

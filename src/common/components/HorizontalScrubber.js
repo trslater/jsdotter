@@ -16,6 +16,8 @@ class HorizontalScrubber extends PureComponent {
 		this.maxScrub = this.props.trackWidth - this.props.scrubberWidth
 		this.minValue = this.props.valueRange[0]
 		this.maxValue = this.props.valueRange[1]
+
+		this.handleDrag = this.handleDrag.bind(this)
 	}
 
 	handleDrag(e, data) {
@@ -31,7 +33,7 @@ class HorizontalScrubber extends PureComponent {
 				<Draggable
 					axis="x"
 					bounds={{ left: this.minScrub, right: this.maxScrub }}
-					onDrag={this.handleDrag.bind(this)}
+					onDrag={this.handleDrag}
 					position={{
 						x: this.valueToScrubberPostion(this.props.value),
 						y: 0,

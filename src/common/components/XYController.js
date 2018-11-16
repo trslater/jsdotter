@@ -4,7 +4,7 @@ import styles from './XYController.module.css'
 
 import XHairs from 'common/components/Xhairs'
 
-// import log from 'common/dev/Logger'
+import log from 'common/dev/Logger'
 
 class XYController extends PureComponent {
 	///////////////
@@ -32,6 +32,8 @@ class XYController extends PureComponent {
 
 		this.state = { dragging: false }
 
+		this.handleMouseDown = this.handleMouseDown.bind(this)
+
 		document.addEventListener('mousemove', this.handleMouseMove.bind(this))
 		document.addEventListener('mouseup', this.handleMouseUp.bind(this))
 	}
@@ -54,7 +56,7 @@ class XYController extends PureComponent {
 					width: width,
 					height: height,
 				}}
-				onMouseDown={this.handleMouseDown.bind(this)}
+				onMouseDown={this.handleMouseDown}
 			>
 				<div
 					className={styles.xhairsWrapper}
@@ -70,7 +72,7 @@ class XYController extends PureComponent {
 	}
 
 	////////////////////
-	// EVENt HANDLERS //
+	// EVENT HANDLERS //
 	////////////////////
 
 	handleMouseDown(e) {
@@ -90,12 +92,14 @@ class XYController extends PureComponent {
 	}
 
 	handleMouseMove(e) {
-		const [xPx, yPx] = this.constrainXYPx(
-			e.pageX - this.fieldBox.left,
-			e.pageY - this.fieldBox.top,
-		)
-
 		if (this.state.dragging) {
+			e.preventDefault()
+
+			const [xPx, yPx] = this.constrainXYPx(
+				e.pageX - this.fieldBox.left,
+				e.pageY - this.fieldBox.top,
+			)
+
 			this.props.onXhairsMove(
 				xPx * this.xValuePixelRatio,
 				yPx * this.yValuePixelRatio,
