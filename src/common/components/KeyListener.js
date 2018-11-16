@@ -1,22 +1,22 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 
 import log from 'common/dev/Logger'
 
-class KeyListener extends PureComponent {
+class KeyListener extends Component {
     constructor(props) {
         super(props)
 
-        document.onkeydown = (event) => {
-            event.preventDefault()
-
-            const { key } = event
-
+        document.addEventListener('keydown', event => {
             for (let map of props.keyMap) {
-                if (map.key === key) {
-                    map.handler()
+                if (map.key === event.key) {
+                    map.handler(event)
                 }
             }
-        }
+        })
+    }
+
+    shouldComponentUpdate() {
+        return false
     }
 
     render() { return null }
