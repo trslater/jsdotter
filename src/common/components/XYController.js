@@ -4,7 +4,7 @@ import styles from './XYController.module.css'
 
 import XHairs from 'common/components/Xhairs'
 
-import log from 'common/dev/Logger'
+// import log from 'common/dev/Logger'
 
 class XYController extends PureComponent {
 	///////////////
