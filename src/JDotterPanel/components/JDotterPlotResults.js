@@ -2,16 +2,37 @@ import React, { PureComponent } from 'react'
 
 // import log from 'common/dev/Logger'
 
-// TODO: Add loading placeholder for image and loading animation
-
 class JDotterPlotResults extends PureComponent {
 	state = {
 		canvasInitialized: false,
 	}
 
-	componentWillMount() {
+	constructor(props) {
+		super(props)
+
 		this.image = React.createRef()
 		this.canvas = React.createRef()
+
+		this.handleImageLoad = this.handleImageLoad.bind(this)
+	}
+
+	handleImageLoad() {
+		this.context = this.canvas.current.getContext('2d')
+
+		this.context.drawImage(
+			this.image.current,
+			0,
+			0,
+		)
+		this.imageData = this.context.getImageData(
+			0,
+			0,
+			this.image.current.width,
+			this.image.current.height,
+		)
+		this.origPixels = [...this.imageData.data]
+
+		this.setState({ ...this.state, canvasInitialized: true })
 	}
 
 	componentDidUpdate() {
@@ -32,51 +53,26 @@ class JDotterPlotResults extends PureComponent {
 		}
 	}
 
-	handleImageLoad() {
-		this.context = this.canvas.current.getContext('2d')
-
-		this.canvas.current.width = this.image.current.width
-		this.canvas.current.height = this.image.current.height
-
-		this.context.drawImage(
-			this.image.current,
-			0,
-			0,
-			this.image.current.width,
-			this.image.current.height,
-			0,
-			0,
-			this.image.current.width,
-			this.image.current.height,
-		)
-		this.imageData = this.context.getImageData(
-			0,
-			0,
-			this.image.current.width,
-			this.image.current.height,
-		)
-		this.origPixels = [...this.imageData.data]
-
-		this.setState({ ...this.state, canvasInitialized: true })
-	}
-
 	render() {
+		const { width, height, pixels } = this.props
+
 		return (
-			<div>
+			<div
+				style={{
+					width,
+					height,
+				}}
+			>
+				<canvas {...{ width, height }} ref={this.canvas} />
+
 				<div style={{ display: 'none' }}>
 					<img
-						src={'data:image/png;base64,' + this.props.pixels}
+						src={'data:image/png;base64,' + pixels}
 						ref={this.image}
 						alt="Stuffs"
-						onLoad={this.handleImageLoad.bind(this)}
+						onLoad={this.handleImageLoad}
 					/>
 				</div>
-
-				<canvas
-					width={this.props.width}
-					height={this.props.height}
-					ref={this.canvas}
-				/>
 			</div>
 		)
 	}
