@@ -9,7 +9,7 @@ import Layers from 'common/components/Layers'
 import Axis from 'common/components/Axis'
 import JDotterPlotInfo from 'JDotterPanel/components/JDotterPlotInfo'
 
-import log from 'common/dev/Logger'
+// import log from 'common/dev/Logger'
 
 // TODO: Improve performance
 // 		- Convert to stateless functional where possible
