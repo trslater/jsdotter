@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react'
 import styles from 'common/components/HorizontalScrubber.module.css'
 import Draggable from 'react-draggable'
 
-import log from 'common/dev/Logger'
+// import log from 'common/dev/Logger'
 
 /*
 The scrubber takes its position in the form of a value

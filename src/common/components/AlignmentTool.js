@@ -5,7 +5,7 @@ import styles from 'common/components/AlignmentTool.module.css'
 import HorizontalScrubber from 'common/components/HorizontalScrubber'
 import SeqCompare from 'common/components/SeqCompare'
 
-import log from 'common/dev/Logger'
+// import log from 'common/dev/Logger'
 
 class AlignmentTool extends PureComponent {
 	render() {

@@ -4,7 +4,7 @@ import styles from 'common/components/SeqCompare.module.css'
 
 import BasePair from 'common/components/BasePair'
 
-import log from 'common/dev/Logger'
+// import log from 'common/dev/Logger'
 
 // TODO: Make this faster!
 

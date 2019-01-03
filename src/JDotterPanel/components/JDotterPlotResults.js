@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 
-import log from 'common/dev/Logger'
+// import log from 'common/dev/Logger'
 
 // TODO: Add loading placeholder for image and loading animation
 

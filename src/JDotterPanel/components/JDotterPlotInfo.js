@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 
 import styles from './JDotterPlotInfo.module.css'
 
-import log from 'common/dev/Logger'
+// import log from 'common/dev/Logger'
 
 class JDotterPlotInfo extends PureComponent {
     render() {
@@ -14,7 +14,7 @@ class JDotterPlotInfo extends PureComponent {
             pixelFactor,
             scoreMatrixName,
         } = this.props
-        
+
         const horizSeqNameListItems = horizSeqNames.map((name, i) => <li key={i}>{name}</li>)
         const vertSeqNameListItems = vertSeqNames.map((name, i) => <li key={i}>{name}</li>)
         const characteristicsListItems = [

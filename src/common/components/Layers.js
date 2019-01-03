@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 
 import styles from './Layers.module.css'
 
-import log from 'common/dev/Logger'
+// import log from 'common/dev/Logger'
 
 class Layers extends PureComponent {
 	render() {
