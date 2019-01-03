@@ -84,7 +84,9 @@ class JDotterPanel extends PureComponent {
 		this.setState({ ...this.state, whitePoint })
 	}
 
-	handleArrowLeft() {
+	handleArrowLeft(e) {
+		e.preventDefault()
+		
 		if (this.state.horizSeqPosition > this.horizMin) {
 			this.setState({
 				...this.state,
@@ -92,7 +94,9 @@ class JDotterPanel extends PureComponent {
 			})
 		}
 	}
-	handleArrowRight() {
+	handleArrowRight(e) {
+		e.preventDefault()
+		
 		if (this.state.horizSeqPosition < this.horizMax) {
 			this.setState({
 				...this.state,
@@ -100,7 +104,9 @@ class JDotterPanel extends PureComponent {
 			})
 		}
 	}
-	handleArrowUp() {
+	handleArrowUp(e) {
+		e.preventDefault()
+		
 		if (this.state.vertSeqPosition > this.vertMin) {
 			this.setState({
 				...this.state,
@@ -108,7 +114,9 @@ class JDotterPanel extends PureComponent {
 			})
 		}
 	}
-	handleArrowDown() {
+	handleArrowDown(e) {
+		e.preventDefault()
+
 		if (this.state.vertSeqPosition < this.vertMax) {
 			this.setState({
 				...this.state,
