@@ -161,17 +161,6 @@ class JDotterPanel extends PureComponent {
 					layers={[
 						{
 							content: (
-								<JDotterPlotResults
-									{...{ width, height, pixels }}
-									blackPoint={this.state.blackPoint}
-									whitePoint={this.state.whitePoint}
-								/>
-							),
-							leftOffset: 25,
-							topOffset: 25,
-						},
-						{
-							content: (
 								<Axis
 									type="top"
 									length={width}
@@ -192,6 +181,17 @@ class JDotterPanel extends PureComponent {
 									scale={zoom}
 								/>
 							),
+							topOffset: 25,
+						},
+						{
+							content: (
+								<JDotterPlotResults
+									{...{ width, height, pixels }}
+									blackPoint={this.state.blackPoint}
+									whitePoint={this.state.whitePoint}
+								/>
+							),
+							leftOffset: 25,
 							topOffset: 25,
 						},
 						{
