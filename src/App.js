@@ -9,7 +9,6 @@ TODO: Implement testing framework
 		- For now, thinking Jest + Enzyme
 TODO: Start using prop-types
 
-BACKBURNER: Later considerations
 BACKBURNER: Drag and drop
 BACKBURNER: GraphQL
 BACKBURNER: Restructuring
@@ -20,22 +19,18 @@ BACKBURNER: Redux
 import React, { Component } from 'react'
 import 'App.css'
 
-import JDotterLauncher from 'common/components/JDotterLauncher'
-import FileUploader from 'common/components/FileUploader'
-import SequenceList from 'common/components/SequenceList'
+// import JDotterLauncher from 'common/components/JDotterLauncher'
+// import FileUploader from 'common/components/FileUploader'
+// import SequenceList from 'common/components/SequenceList'
 
-import log from 'common/dev/Logger'
+// import log from 'common/dev/Logger'
 
-import log from './common/dev/Logger'
+// TESTING:
+import JDotterPanelContainerMock from 'JDotterPanel/components/JDotterPanelContainerMock'
 
 class App extends Component {
-	constructor(props) {
-		super(props)
-		log.debug('Creating: %O', this)
-		this.state = {
-			seqNames: [],
-		}
-		log.debug('Initial state: %O', this.state)
+	state = {
+		seqNames: [],
 	}
 
 	handleGetSeqNames(seqNames) {
@@ -46,7 +41,6 @@ class App extends Component {
 	}
 
 	sendToDotter(horizontal, vertical) {
-		console.log(horizontal, vertical)
 	}
 
 	// FEATURE: Send vertical and horizontal sequences to JDotter
@@ -55,11 +49,13 @@ class App extends Component {
 	render() {
 		return (
 			<div className="App">
-				<JDotterLauncher seqNames={this.state.seqNames} />
+				{/* <JDotterLauncher seqNames={this.state.seqNames} />
 				<FileUploader
 					onGetSeqNames={this.handleGetSeqNames.bind(this)}
 				/>
-				<SequenceList seqNames={this.state.seqNames} />
+				<SequenceList seqNames={this.state.seqNames} /> */}
+				{/* TESTING: */}
+				<JDotterPanelContainerMock />
 			</div>
 		)
 	}
